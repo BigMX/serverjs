@@ -137,10 +137,10 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO users(user_id,username, user_password,full_name,email,address,favorite_garage) VALUES ("
+        q+="INSERT INTO users(user_id,user_name, user_password,full_name,email,address,favorite_garage) VALUES ("
         q+=request.payload['user_id'];
         q+=",";
-        q+=request.payload['username'];
+        q+=request.payload['user_name'];
         q+=",";
         q+=request.payload['user_password'];
         q+=",";
@@ -185,7 +185,7 @@ server.route({
             if (error)
                 throw error;
         });
-        reply("Your Part is Done");
+        reply(q);
     }
 });
 server.route({
