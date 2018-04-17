@@ -42,12 +42,47 @@ server.route({
         });
     }
 });
+
+server.route({
+    method: 'GET',
+    path: '/showUsers',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        connection.query('SELECT * FROM users', function (error, results, fields) {
+            if (error)
+                throw error;
+            //Sends back to the client the value of 1 + 1
+            reply (results);
+        });
+    }
+});
+
 server.route({
     method: 'GET',
     path: '/showRepairs',
     handler: function (request, reply) {
         console.log('Server processing a / request');
         connection.query('SELECT * FROM repairs', function (error, results, fields) {
+            if (error)
+                throw error;
+            //Sends back to the client the value of 1 + 1
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/login',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q="";
+        q+="SELECT user_id FROM users WHERE email = ";
+        q+=request.payload['email'];
+        q+=" AND user_password = ";
+        q+=request.payload['user_password'];
+        q+=";";
+        connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
             //Sends back to the client the value of 1 + 1
