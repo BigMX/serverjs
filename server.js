@@ -155,6 +155,14 @@ server.route({
         q+=request.payload['cost'];
         q+=",";
         q+=request.payload['repair_status'];
+        q+=",";
+        q+=request.payload['repair_notes'];
+        q+=",";
+        q+=request.payload['repair_title'];
+        q+=",";
+        q+=request.payload['repair_x_cord'];
+        q+=",";
+        q+=request.payload['repair_y_cord'];
         q+=");";
 
         connection.query(q, function (error, results, fields){
