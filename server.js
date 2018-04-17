@@ -83,10 +83,9 @@ server.route({
         q+=request.payload['user_password'];
         q+=";";
         connection.query(q, function (error, results, fields) {
-            // if (error)
-            //     throw error;
-            //Sends back to the client the value of 1 + 1
-            reply (q);
+            if (error)
+                throw error;
+            reply (results);
         });
     }
 });
