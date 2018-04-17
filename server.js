@@ -121,13 +121,13 @@ server.route({
         q+=request.payload['cost'];
         q+=",";
         q+=request.payload['repair_status'];
-        q+=");"
+        q+=");";
 
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
         });
-        reply("Your Repair is Done");
+        reply(q);
     }
 });
 
@@ -151,13 +151,13 @@ server.route({
         q+=request.payload['address'];
         q+=",";
         q+=request.payload['favorite_garage'];
-        q+=");"
+        q+=");";
 
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
         });
-        reply("Your Repair is Done");
+        reply(q);
     }
 });
 
