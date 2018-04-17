@@ -147,7 +147,7 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO repairs(repair_id,vehicle_id, cost, repair_status) VALUES ("
+        q+="INSERT INTO repairs(repair_id,vehicle_id, cost, repair_status,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
         q+=request.payload['repair_id'];
         q+=",";
         q+=request.payload['vehicle_id'];
