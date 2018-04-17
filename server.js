@@ -86,7 +86,7 @@ server.route({
             if (error)
                 throw error;
             //Sends back to the client the value of 1 + 1
-            reply (results);
+            reply (q);
         });
     }
 });
