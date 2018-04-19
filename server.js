@@ -51,7 +51,19 @@ server.route({
         connection.query('SELECT * FROM users', function (error, results, fields) {
             if (error)
                 throw error;
-            //Sends back to the client the value of 1 + 1
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/showGarages',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        connection.query('SELECT * FROM garages', function (error, results, fields) {
+            if (error)
+                throw error;
             reply (results);
         });
     }
@@ -207,7 +219,7 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO users(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ("
+        q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ("
         q+=request.payload['garage_password'];
         q+=",";
         q+=request.payload['garage_name'];
