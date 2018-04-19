@@ -179,9 +179,7 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO users(user_id,username, user_password,full_name,email,address,favorite_garage) VALUES ("
-        q+=request.payload['user_id'];
-        q+=",";
+        q+="INSERT INTO users(username, user_password,full_name,email,address,favorite_garage) VALUES ("
         q+=request.payload['username'];
         q+=",";
         q+=request.payload['user_password'];
