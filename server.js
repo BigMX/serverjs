@@ -203,6 +203,32 @@ server.route({
 
 server.route({
     method: 'POST',
+    path: '/addGarage',
+    handler: function(request, reply){
+        
+        var q="";
+        q+="INSERT INTO users(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ("
+        q+=request.payload['garage_password'];
+        q+=",";
+        q+=request.payload['garage_name'];
+        q+=",";
+        q+=request.payload['garage_email'];
+        q+=",";
+        q+=request.payload['garage_location'];
+        q+=",";
+        q+=request.payload['garage_description'];
+        q+=");";
+
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply(q);
+    }
+});
+
+server.route({
+    method: 'POST',
     path: '/addPart',
     handler: function(request, reply){
         
