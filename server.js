@@ -249,17 +249,17 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO users(username, user_password,full_name,email,address,favorite_garage) VALUES ("
+        q+="INSERT INTO users(username, user_password,full_name,email,address,favorite_garage) VALUES ('"
         q+=request.payload['username'];
-        q+=",";
+        q+="','";
         q+=request.payload['user_password'];
-        q+=",";
+        q+="','";
         q+=request.payload['full_name'];
-        q+=",";
+        q+="','";
         q+=request.payload['email'];
-        q+=",";
+        q+="','";
         q+=request.payload['address'];
-        q+=",";
+        q+="',";
         q+=request.payload['favorite_garage'];
         q+=");";
 
