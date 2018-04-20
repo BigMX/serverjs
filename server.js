@@ -140,7 +140,7 @@ server.route({
 });
 
 server.route({
-    method: 'GET',
+    method: 'POST',
     path: '/login',
     handler: function (request, reply) {
         console.log('Server processing a / request');
