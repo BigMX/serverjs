@@ -3,8 +3,7 @@
 const Hapi = require('hapi');
 
 const server = new Hapi.Server();
-server.connection({ port: 3000, host: '0.0.0.0' });
-server.connection({cors:true});
+server.connection({ port: 3000, host: '0.0.0.0',cors:true });
 
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
@@ -81,6 +80,25 @@ server.route({
             if (error)
                 throw error;
             reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/favorite',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q='';
+        q+='UPDATE users set favorite_garage =';
+        q+=request.payload['favorite_garage'];
+        q+=' WHERE user_id=';
+        q+=request.payload['user_id'];
+        q+=');';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (q);
         });
     }
 });
