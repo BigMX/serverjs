@@ -146,7 +146,7 @@ server.route({
         console.log('Server processing a / request');
         console.log('request: ', request);
         var q="";
-        q+="SELECT user_id FROM users WHERE users.email = ";
+        q+="SELECT user_id FROM users HAVING users.email = ";
         q+=request.payload['email'];
         q+=" AND users.user_password = ";
         q+=request.payload['user_password'];
