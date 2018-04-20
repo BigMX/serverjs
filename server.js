@@ -263,6 +263,7 @@ server.route({
         q+=request.payload['favorite_garage'];
         q+=");";
 
+        console.log("q is :",q);
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
