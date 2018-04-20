@@ -4,6 +4,7 @@ const Hapi = require('hapi');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: '0.0.0.0' });
+server.connection({cors:true});
 
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
@@ -65,6 +66,43 @@ server.route({
             if (error)
                 throw error;
             reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/showTimeslots',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q='';
+        q+='SELECT timeslot_time FROM timeslots'
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/reserve',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q="";
+        q+="INSERT INTO timeslots(garage_id,timeslot_time,timeslot_cost) VALUES ("
+        q+=request.payload['garage_id'];
+        q+=",";
+        q+=request.payload['timeslot_time'];
+        q+=",";
+        q+=request.payload['timeslot_cost'];
+        q+=");";
+
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (q);
         });
     }
 });
