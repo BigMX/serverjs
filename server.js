@@ -90,7 +90,7 @@ server.route({
     handler: function (request, reply) {
         console.log('Server processing a / request');
         var q='';
-        q+='UPDATE users set favorite_garage =';
+        q+='UPDATE users SET favorite_garage =';
         q+=request.payload['favorite_garage'];
         q+=' WHERE user_id=';
         q+=request.payload['user_id'];
@@ -140,7 +140,7 @@ server.route({
 });
 
 server.route({
-    method: 'POST',
+    method: 'GET',
     path: '/login',
     handler: function (request, reply) {
         console.log('Server processing a / request');
