@@ -94,7 +94,7 @@ server.route({
         q+=request.payload['favorite_garage'];
         q+=' WHERE user_id=';
         q+=request.payload['user_id'];
-        q+=');';
+        q+=';';
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
@@ -168,7 +168,6 @@ server.route({
         connection.query('SHOW DATABASES', function (error, results, fields) {
             if (error)
                 throw error;
-            //Sends back to the client the value of 1 + 1
             reply (results);
         });
     }
@@ -280,15 +279,15 @@ server.route({
         var q="";
         q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ("
         q+=request.payload['garage_password'];
-        q+=",";
+        q+="','";
         q+=request.payload['garage_name'];
-        q+=",";
+        q+="','";
         q+=request.payload['garage_email'];
-        q+=",";
+        q+="','";
         q+=request.payload['garage_location'];
-        q+=",";
+        q+="','";
         q+=request.payload['garage_description'];
-        q+=");";
+        q+="');";
 
         connection.query(q, function (error, results, fields){
             if (error)
