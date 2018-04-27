@@ -8,6 +8,7 @@ server.connection({ port: 3000, host: '0.0.0.0', routes:{cors:true }});
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
 var mysql      = require('mysql');
+var user_id    = 0;
 var connection = mysql.createConnection({
 
     //host will be the name of the service from the docker-compose file. 
@@ -155,10 +156,10 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            
-            //reply (results);
+            user_id=results;
+            reply (results);
         });
-        var jwt = require('jsonwebtoken');
+        // var jwt = require('jsonwebtoken');
         var token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
             dataUserName: request.payload['email']}, {
