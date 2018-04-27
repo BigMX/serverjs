@@ -155,8 +155,16 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            reply (results);
+            
+            //reply (results);
         });
+        var jwt = require('jsonwebtoken');
+        var token = jwt.sign({
+            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+            dataUserName: request.payload['email']}, {
+                dataUserPassword: request.payload['user_password'] //once all passwords are hashed can be changed to 'hashedPassword'
+            }, 'secret');
+        reply (token);
     }
 });
 
