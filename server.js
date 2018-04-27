@@ -286,7 +286,7 @@ server.route({
     handler: function(request, reply){
         
         var q="";
-        q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ("
+        q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ('"
         q+=request.payload['garage_password'];
         q+="','";
         q+=request.payload['garage_name'];
