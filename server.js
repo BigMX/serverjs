@@ -157,9 +157,9 @@ server.route({
             if (error)
                 throw error;
             user_id=results;
-            reply (results);
+            // reply (results);
         });
-        // var jwt = require('jsonwebtoken');
+        var jwt = require('jsonwebtoken');
         var token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
             dataUserName: request.payload['email']}, {
