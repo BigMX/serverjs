@@ -31,6 +31,16 @@ server.route({
     handler: function (request, reply) {
         var cookie = request.state.session
         console.log('Server processing a / request');
+        reply('Hello Future Studio').unstate('session')
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/2',
+    handler: function (request, reply) {
+        var cookie = request.state.session
+        console.log('Server processing a / request');
         reply(cookie.username);
     }
 });
@@ -170,7 +180,7 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                reply(cookie.username).state('session', cookie)
+                reply(cookie.username).state('session', session)
             });
         }
     }
