@@ -180,7 +180,8 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                reply(cookie.username).state('session', session)
+                reply(cookie.username)
+                .state('session', cookie)
             });
         }
     }
