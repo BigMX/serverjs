@@ -169,7 +169,7 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                reply(cookie.state);
+                reply(cookie.lastVisit);
             });
         }
     }
