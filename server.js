@@ -163,12 +163,7 @@ server.route({
             connection.query(q, function (error, results, fields) {
                 if (error)
                     throw error;
-                if (!cookie&&results!=[]) {
-                    cookie = {
-                        username: 'ss',
-                        firstVisit: false
-                    }
-                }
+  
                 reply(results);
             });
         }
