@@ -165,7 +165,7 @@ server.route({
                     throw error;
                 if (!cookie&&results!=[]) {
                     cookie = {
-                        username: JSON.stringify(results),
+                        username: 'ss',
                         firstVisit: false
                     }
                 }
