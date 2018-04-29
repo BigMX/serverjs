@@ -39,7 +39,7 @@ server.route({
     method: 'GET',
     path: '/2',
     handler: function (request, reply) {
-        var cookie = request.state['session']
+        var cookie = request.state('session')
         console.log('Server processing a / request');
         reply(cookie.username);
     }
