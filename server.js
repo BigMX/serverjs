@@ -30,7 +30,7 @@ server.route({
     path: '/',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        reply('Hello, worlsds!');
+        reply(cookie.username);
     }
 });
 
