@@ -5,6 +5,10 @@ const Hapi = require('hapi');
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: '0.0.0.0', routes:{cors:true }});
 
+server.state('session', {  
+    ttl: 1000 * 60 * 60 * 24,    // 1 day lifetime
+    encoding: 'base64json' 
+})
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
 var mysql      = require('mysql');
@@ -143,29 +147,33 @@ server.route({
 server.route({
     method: 'POST',
     path: '/login',
-    handler: function (request, reply) {
-        console.log('Server processing a / request');
-        console.log('request: ', request);
-        var q="";
-        q+="SELECT user_id FROM users WHERE email = '";
-        q+=request.payload['email'];
-        q+="' AND user_password = '";
-        q+=request.payload['user_password'];
-        q+="';";
-        console.log('q is: ', q);
-        connection.query(q, function (error, results, fields) {
-            if (error)
-                throw error;
-            user_id=results;
-            // reply (results);
-        });
-        var jwt = require('jsonwebtoken');
-        var token = jwt.sign({
-            exp: Math.floor(Date.now() / 1000) + (60 * 60),
-            dataUserName: request.payload['email']}, {
-                dataUserPassword: request.payload['user_password'] //once all passwords are hashed can be changed to 'hashedPassword'
-            }, 'secret');
-        reply (token);
+    config:{
+        handler: function (request, reply) {
+            var cookie=request.state.session;
+            if (!cookie) {
+                cookie = {
+                    username: 'futurestudio',
+                    firstVisit: false
+                }
+            }
+            cookie.lastVisit = Date.now()
+            console.log('Server processing a / request');
+            console.log('request: ', request);
+            var q="";
+            q+="SELECT user_id FROM users WHERE email = '";
+            q+=request.payload['email'];
+            q+="' AND user_password = '";
+            q+=request.payload['user_password'];
+            q+="';";
+            console.log('q is: ', q);
+            connection.query(q, function (error, results, fields) {
+                if (error)
+                    throw error;
+                    user_id=results;
+                    // reply (results);
+                    reply('hello').state('session',cookie);
+            });
+        }
     }
 });
 
