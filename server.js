@@ -29,8 +29,9 @@ server.route({
     method: 'GET',
     path: '/',
     handler: function (request, reply) {
+        var cookie = request.state.session
         console.log('Server processing a / request');
-        reply('Hello Future Studio').unstate('session')
+        reply(cookie.username);
     }
 });
 
