@@ -162,9 +162,9 @@ server.route({
             connection.query(q, function (error, results, fields) {
                 if (error)
                     throw error;
-                if (!cookie) {
+                if (!cookie&&results!=[]) {
                     cookie = {
-                        username: 'ss',
+                        username: JSON.stringify(results),
                         firstVisit: false
                     }
                 }
