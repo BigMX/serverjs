@@ -30,7 +30,7 @@ server.route({
     path: '/',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        reply(cookie.username);
+        reply('Hello Future Studio').unstate('session')
     }
 });
 
@@ -169,7 +169,7 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                reply(cookie.results);
+                reply(cookie.username)
             });
         }
     }
