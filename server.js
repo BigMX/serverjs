@@ -150,12 +150,6 @@ server.route({
     config:{
         handler: function (request, reply) {
             var cookie=request.state.session;
-            if (!cookie) {
-                cookie = {
-                    username: 'futurestudio',
-                    firstVisit: false
-                }
-            }
             cookie.lastVisit = Date.now()
             console.log('Server processing a / request');
             console.log('request: ', request);
@@ -169,9 +163,13 @@ server.route({
             connection.query(q, function (error, results, fields) {
                 if (error)
                     throw error;
-                    user_id=results;
-                    // reply (results);
-                    reply(cookie.username,cookie.lastVisit);
+                    if (!cookie&&results!=null) {
+                        cookie = {
+                            username: cookie.username,
+                            firstVisit: false
+                        }
+                    }
+                    reply(results);
             });
         }
     }
