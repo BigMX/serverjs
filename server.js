@@ -163,13 +163,13 @@ server.route({
             connection.query(q, function (error, results, fields) {
                 if (error)
                     throw error;
-                    if (!cookie&&results!=null) {
-                        cookie = {
-                            username: cookie.username,
-                            firstVisit: false
-                        }
+                if (!cookie&&results!=[]) {
+                    cookie = {
+                        username: JSON.stringify(results),
+                        firstVisit: false
                     }
-                    reply(results);
+                }
+                reply(results);
             });
         }
     }
