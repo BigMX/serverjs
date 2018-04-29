@@ -171,7 +171,7 @@ server.route({
                     throw error;
                     user_id=results;
                     // reply (results);
-                    reply('hello').state('session',cookie);
+                    reply(cookie.username,cookie.lastVisit);
             });
         }
     }
