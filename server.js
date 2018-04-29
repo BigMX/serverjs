@@ -149,15 +149,7 @@ server.route({
     path: '/login',
     config:{
         handler: function (request, reply) {
-            var cookie=request.state.session;
-            cookie.lastVisit = Date.now()
-            if (!cookie) {
-                cookie = {
-                    username: 'ss',
-                    firstVisit: false
-                }
-            }
-            cookie.lastVisit = Date.now()
+
             console.log('Server processing a / request');
             console.log('request: ', request);
             var q="";
