@@ -180,14 +180,8 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                if (JSON.stringify(results) !== '{}'){
-                    curr.id=results[0].user_id;
-                    curr.ip=request.raw.req.connection.remoteAddress;
-                }else{
-                    curr.id=0;
-                    curr.ip='';
-                }
-                reply(curr)
+
+                reply((JSON.stringify(results))
                 .state('session', cookie)
             });
         }
