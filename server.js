@@ -12,7 +12,7 @@ server.state('session', {
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
 var mysql      = require('mysql');
-var curr    = {ip:'',id:''};
+var curr    = {ip:null,id:''};
 var connection = mysql.createConnection({
 
     //host will be the name of the service from the docker-compose file. 
@@ -182,10 +182,12 @@ server.route({
                 cookie.lastVisit = Date.now()
                 if (results!=[]){
                     curr.id=results[0].user_id;
-                }else{
                     curr.ip=request.raw.req.connection.remoteAddress;
+                }else{
+                    curr.id=0;
+                    curr.ip='';
                 }
-                reply(request.raw.req.connection.remoteAddress)
+                reply(curr)
                 .state('session', cookie)
             });
         }
@@ -277,9 +279,9 @@ server.route({
     method: 'POST',
     path: '/addVehicle',
     handler: function(request, reply){
-        if(request.raw.req.connection.remoteAddress!=curr.ip){
-            throw('you need to log in');
-        }
+        // if(request.raw.req.connection.remoteAddress!=curr.ip){
+        //     throw('you need to log in');
+        // }
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
         q += curr.id;
