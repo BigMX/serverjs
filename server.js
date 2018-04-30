@@ -278,8 +278,6 @@ server.route({
         q += ",";
         q += request.payload['garage_id'];
         q += ",'";
-        q += request.payload['garage_id'];
-        q += "','";
         q += request.payload['vehicle_name'];
         q += "','";
         q += request.payload['vehicle_make'];
