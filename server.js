@@ -270,7 +270,7 @@ server.route({
 });
 server.route({
     method: 'POST',
-    path: 'addVehicle',
+    path: '/addVehicle',
     handler: function(request, reply){
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
