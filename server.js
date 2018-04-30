@@ -185,7 +185,7 @@ server.route({
                 }else{
                     curr.ip=request.info.address;
                 }
-                reply(curr)
+                reply(request.info.address)
                 .state('session', cookie)
             });
         }
