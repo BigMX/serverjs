@@ -4,7 +4,11 @@ const Hapi = require('hapi');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: '0.0.0.0', routes:{cors:true }});
-
+const registerPlugins = async (server) => {
+    await server.register([
+        { plugin: require('hapi-sanitize-payload'), options: { pruneMethod: 'delete' } }
+    ]);
+};
 server.state('session', {  
     ttl: 1000 * 60 * 60 * 24,    // 1 day lifetime
     encoding: 'base64json' 
@@ -175,7 +179,7 @@ server.route({
                     throw error;
                 if (!cookie&&results!=[]) {
                     cookie = {
-                        username: JSON.stringify(results),
+                        username: 'miaomiao',
                         firstVisit: false
                     }
                 }
@@ -266,7 +270,13 @@ server.route({
                 throw error;
         });
         reply(q);
+    },
+    options: {
+        plugins: {
+            sanitize: { enabled: false }
+        }
     }
+  
 });
 
 server.route({
