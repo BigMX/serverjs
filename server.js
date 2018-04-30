@@ -181,7 +181,8 @@ server.route({
                 }
                 cookie.lastVisit = Date.now()
 
-                reply((JSON.stringify(results))
+                var r=(JSON.stringify(results))
+                reply(r)
                 .state('session', cookie)
             });
         }
