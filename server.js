@@ -272,30 +272,30 @@ server.route({
     method: 'POST',
     path: 'addVehicle',
     handler: function(request, reply){
-        var query = "";
-        query += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
-        query += request.payload['user_id'];
-        query += ",'";
-        query += request.payload['garage_id'];
-        query += "','";
-        query += request.payload['vehicle_name'];
-        query += "','";
-        query += request.payload['vehicle_make'];
-        query += "','";
-        query += request.payload['vehicle_model'];
-        query += "','";
-        query += request.payload['vehicle_year'];
-        query += "','";
-        query += request.payload['vehicle_color'];
-        query += "','";
-        query += request.payload['vehicle_init_diagnosis'];
-        query += "','";
-        query += request.payload['vehicle_license_plate'];
-        query += "','";
-        query += request.payload['vehicle_title_status'];
-        query += "');";
+        var q = "";
+        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
+        q += request.payload['user_id'];
+        q += ",'";
+        q += request.payload['garage_id'];
+        q += "','";
+        q += request.payload['vehicle_name'];
+        q += "','";
+        q += request.payload['vehicle_make'];
+        q += "','";
+        q += request.payload['vehicle_model'];
+        q += "','";
+        q += request.payload['vehicle_year'];
+        q += "','";
+        q += request.payload['vehicle_color'];
+        q += "','";
+        q += request.payload['vehicle_init_diagnosis'];
+        q += "','";
+        q += request.payload['vehicle_license_plate'];
+        q += "','";
+        q += request.payload['vehicle_title_status'];
+        q += "');";
  
-        connection.query(query, function (error, results, fields){
+        connection.query(q, function (error, results, fields){
             if(error)
                 throw error;
         });
