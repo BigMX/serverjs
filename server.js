@@ -185,7 +185,7 @@ server.route({
                 }else{
                     curr.ip=request.info.address;
                 }
-                reply(request.info.address)
+                reply(request.raw.req.connection.remoteAddress)
                 .state('session', cookie)
             });
         }
