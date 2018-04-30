@@ -182,6 +182,8 @@ server.route({
                 cookie.lastVisit = Date.now()
                 if (results!=[]){
                     curr=results[0].user_id;
+                }else{
+                    curr=0;
                 }
                 reply(curr)
                 .state('session', cookie)
@@ -277,7 +279,7 @@ server.route({
     handler: function(request, reply){
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
-        q += request.payload['user_id'];
+        q += curr;
         q += ",";
         q += request.payload['garage_id'];
         q += ",'";
