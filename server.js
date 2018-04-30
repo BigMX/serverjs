@@ -299,7 +299,7 @@ server.route({
             if(error)
                 throw error;
         });
-        reply(query);
+        reply(q);
     }
  });
 
