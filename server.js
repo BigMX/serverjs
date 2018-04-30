@@ -183,9 +183,9 @@ server.route({
                 if (results!=[]){
                     curr.id=results[0].user_id;
                 }else{
-                    curr.ip=request.info.address;
+                    curr.ip=request.raw.req.connection.remoteAddress;
                 }
-                reply(request.raw.req.connection.remoteAddress)
+                reply(curr)
                 .state('session', cookie)
             });
         }
@@ -277,9 +277,12 @@ server.route({
     method: 'POST',
     path: '/addVehicle',
     handler: function(request, reply){
+        if(request.raw.req.connection.remoteAddress!=curr.ip){
+            reply('You need to log in');
+        }
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
-        q += curr;
+        q += curr.id;
         q += ",";
         q += request.payload['garage_id'];
         q += ",'";
