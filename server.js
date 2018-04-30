@@ -270,14 +270,42 @@ server.route({
                 throw error;
         });
         reply(q);
-    },
-    options: {
-        plugins: {
-            sanitize: { enabled: false }
-        }
     }
-  
 });
+server.route({
+    method: 'POST',
+    path: 'addVehicle',
+    handler: function(request, reply){
+        var query = "";
+        query += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
+        query += request.payload['user_id'];
+        query += ",'";
+        query += request.payload['garage_id'];
+        query += "','";
+        query += request.payload['vehicle_name'];
+        query += "','";
+        query += request.payload['vehicle_make'];
+        query += "','";
+        query += request.payload['vehicle_model'];
+        query += "','";
+        query += request.payload['vehicle_year'];
+        query += "','";
+        query += request.payload['vehicle_color'];
+        query += "','";
+        query += request.payload['vehicle_init_diagnosis'];
+        query += "','";
+        query += request.payload['vehicle_license_plate'];
+        query += "','";
+        query += request.payload['vehicle_title_status'];
+        query += "');";
+ 
+        connection.query(query, function (error, results, fields){
+            if(error)
+                throw error;
+        });
+        reply(query);
+    }
+ });
 
 server.route({
     method: 'POST',
