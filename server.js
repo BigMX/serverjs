@@ -180,7 +180,7 @@ server.route({
                     }
                 }
                 cookie.lastVisit = Date.now()
-                if (results!=[]){
+                if (results.keys( data.phones ).length!=0){
                     curr.id=results[0].user_id;
                     curr.ip=request.raw.req.connection.remoteAddress;
                 }else{
