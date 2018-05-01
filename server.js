@@ -305,9 +305,9 @@ server.route({
     method: 'POST',
     path: '/addVehicle',
     handler: function(request, reply){
-        if(request.raw.req.connection.remoteAddress!=curr.ip){
-            throw('you need to log in');
-        }
+        // if(request.raw.req.connection.remoteAddress!=curr.ip){
+        //     throw('you need to log in');
+        // }
         var r=sanitized(request.payload)
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
@@ -331,7 +331,7 @@ server.route({
         q += "','";
         q += r['vehicle_title_status'];
         q += "');";
- 
+
         connection.query(q, function (error, results, fields){
             if(error)
                 throw error;
