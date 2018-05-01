@@ -371,18 +371,18 @@ server.route({
     method: 'POST',
     path: '/addGarage',
     handler: function(request, reply){
-        
+        r=sanitized(request.payload);
         var q="";
         q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ('"
-        q+=request.payload['garage_password'];
+        q+=r['garage_password'];
         q+="','";
-        q+=request.payload['garage_name'];
+        q+=r['garage_name'];
         q+="','";
-        q+=request.payload['garage_email'];
+        q+=r['garage_email'];
         q+="','";
-        q+=request.payload['garage_location'];
+        q+=r['garage_location'];
         q+="','";
-        q+=request.payload['garage_description'];
+        q+=r['garage_description'];
         q+="');";
 
         connection.query(q, function (error, results, fields){
