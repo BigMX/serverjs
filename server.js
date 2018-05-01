@@ -233,8 +233,8 @@ server.route({
     config:{
         handler: function (request, reply) {
             var q="";
-            q+="SELECT user_id FROM garages WHERE email = '";
-            q+=request.payload['email'];
+            q+="SELECT user_id FROM garages WHERE garage_email = '";
+            q+=request.payload['garage_email'];
             q+="' AND garage_password = '";
             q+=request.payload['garage_password'];
             q+="';";
