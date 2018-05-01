@@ -310,7 +310,7 @@ server.route({
         // }
         var r=sanitized(request.payload)
         var q = "";
-        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
+        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin) VALUES (";
         q += curr.id;
         q += ",";
         q += r['garage_id'];
