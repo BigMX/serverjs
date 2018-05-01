@@ -422,9 +422,9 @@ server.route({
         var q="";
         q+="INSERT INTO parts(vehicle_make_model,garage_id, part_name,part_serial_number,part_description) VALUES ('"
         q+=r['vehicle_make_model'];
-        q+="','";
+        q+="',";
         q+=r['garage_id'];
-        q+="','";
+        q+=",'";
         q+=r['part_name'];
         q+="','";
         q+=r['part_serial_number'];
@@ -443,12 +443,14 @@ server.route({
     method: 'POST',
     path: '/updateDescription',
     handler: function(request, reply){
-        
+        var r=sanitized(request.payload);
         var q="";
         q+="UPDATE parts SET part_description = " 
-        q+=request.payload['part_description'];
+        q+=r['part_description'];
         q+=" WHERE part_id = ";
-        q+=request.payload['part_id'];
+        q+=r['part_id'];
+        q+=" AND user_id = ";
+        q+=curr.id;
         q+=";";
 
         connection.query(q, function (error, results, fields){
