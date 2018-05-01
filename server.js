@@ -341,6 +341,20 @@ server.route({
     }
  });
 
+ server.route({
+    method: 'GET',
+    path: '/showVehicle',
+    handler: function(request, reply){
+        q='SELECT * FROM vehicles WHERE user_id='
+        q+=curr.id;
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply(results);
+    }
+});
+
 server.route({
     method: 'POST',
     path: '/addUser',
