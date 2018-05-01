@@ -11,7 +11,8 @@ function sanitized(payload){
                 newInput+=val[k];
             }else{
                 console.log("detected")
-                newInput+='\'\'';
+                newInput+=val[k];
+                newInput+=val[k];
             }
         }
         val=newInput;
