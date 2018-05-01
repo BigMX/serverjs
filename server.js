@@ -351,8 +351,8 @@ server.route({
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
+            reply(results);
         });
-        reply(results);
     }
 });
 
