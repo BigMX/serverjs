@@ -371,7 +371,7 @@ server.route({
     method: 'POST',
     path: '/addGarage',
     handler: function(request, reply){
-        r=sanitized(request.payload);
+        var r=sanitized(request.payload);
         var q="";
         q+="INSERT INTO garages(garage_password,garage_name,garage_email,garage_location,garage_description) VALUES ('"
         q+=r['garage_password'];
