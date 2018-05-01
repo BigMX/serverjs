@@ -79,7 +79,10 @@ server.route({
     path: '/showParts',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        connection.query('SELECT * FROM parts', function (error, results, fields) {
+        var q='SELECT * FROM parts WHERE garage_id='
+        q+=curr.id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
             //Sends back to the client the value of 1 + 1
@@ -427,7 +430,6 @@ server.route({
     method: 'GET',
     path: '/showOneVehicle/{vehicle_id}',
     handler: function(request, reply){
-        var params = request.query
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
@@ -506,7 +508,7 @@ server.route({
         q+="INSERT INTO parts(vehicle_make_model,garage_id, part_name,part_serial_number,part_description) VALUES ('"
         q+=r['vehicle_make_model'];
         q+="',";
-        q+=r['garage_id'];
+        q+=curr.id
         q+=",'";
         q+=r['part_name'];
         q+="','";
