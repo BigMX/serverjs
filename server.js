@@ -348,7 +348,7 @@ server.route({
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
-        q+=");"
+        q+=";"
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
