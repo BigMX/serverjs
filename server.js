@@ -15,6 +15,7 @@ function sanitized(payload){
         }
         val=newInput;
     }
+    return r;
 }
 const Hapi = require('hapi');
 
