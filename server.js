@@ -435,7 +435,7 @@ server.route({
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
-            reply(results[params]);
+            reply(results[params.vehicle_id]);
         });
     }
 });
