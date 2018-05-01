@@ -149,6 +149,23 @@ server.route({
 });
 
 server.route({
+    method: 'GET',
+    path: '/showUserInfo',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q='';
+        q+='SELECT * FROM user_id=';
+        q+=curr.id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
+
+server.route({
     method: 'POST',
     path: '/reserve',
     handler: function (request, reply) {
@@ -182,7 +199,23 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            //Sends back to the client the value of 1 + 1
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/showRepairsForVehicle',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var vehicle_id=request.payload['vehicle_id'];
+        var q = 'SELECT * FROM repairs WHERE vehicle_id = '
+        q+=vehicle_id;
+        q+=";";
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
             reply (results);
         });
     }
