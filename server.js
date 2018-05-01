@@ -206,12 +206,11 @@ server.route({
 
 server.route({
     method: 'POST',
-    path: '/showRepairsForVehicle',
+    path: '/showRepairsForGarage',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        var vehicle_id=request.payload['vehicle_id'];
-        var q = 'SELECT * FROM repairs WHERE vehicle_id = '
-        q+=vehicle_id;
+        var q = 'SELECT * FROM repairs NATURAL JOIN vehicles NATURAL JOIN garages WHERE garage_id = '
+        q+=curr.id;
         q+=";";
         connection.query(q, function (error, results, fields) {
             if (error)
