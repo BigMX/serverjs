@@ -274,24 +274,24 @@ server.route({
     method: 'POST',
     path: '/addRepair',
     handler: function(request, reply){
-        
+        var r=sanitized(request.payload)
         var q="";
         q+="INSERT INTO repairs(repair_id,vehicle_id, cost, repair_status,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
-        q+=request.payload['repair_id'];
+        q+=r['repair_id'];
         q+=",";
-        q+=request.payload['vehicle_id'];
+        q+=r['vehicle_id'];
         q+=",";
-        q+=request.payload['cost'];
+        q+=r['cost'];
         q+=",";
-        q+=request.payload['repair_status'];
+        q+=r['repair_status'];
         q+=",";
-        q+=request.payload['repair_notes'];
+        q+=r['repair_notes'];
         q+=",";
-        q+=request.payload['repair_title'];
+        q+=r['repair_title'];
         q+=",";
-        q+=request.payload['repair_x_cord'];
+        q+=r['repair_x_cord'];
         q+=",";
-        q+=request.payload['repair_y_cord'];
+        q+=r['repair_y_cord'];
         q+=");";
 
         connection.query(q, function (error, results, fields){
@@ -308,6 +308,7 @@ server.route({
         // if(request.raw.req.connection.remoteAddress!=curr.ip){
         //     throw('you need to log in');
         // }
+        console.log(r)
         var r=sanitized(request.payload)
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin) VALUES (";
@@ -332,7 +333,7 @@ server.route({
             if(error)
                 throw error;
         });
-        reply(q);
+        reply(r);
     }
  });
 
