@@ -1,7 +1,7 @@
 'use strict';
 
 function sanitized(payload){
-    r=payload;
+    var r=payload;
     for(var i in r){
         var key = i;
         var val = r[i];
