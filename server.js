@@ -305,30 +305,31 @@ server.route({
     method: 'POST',
     path: '/addVehicle',
     handler: function(request, reply){
-        // if(request.raw.req.connection.remoteAddress!=curr.ip){
-        //     throw('you need to log in');
-        // }
+        if(request.raw.req.connection.remoteAddress!=curr.ip){
+            throw('you need to log in');
+        }
+        var r=sanitized(request.payload)
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_name, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_license_plate, vehicle_title_status) VALUES (";
         q += curr.id;
         q += ",";
-        q += request.payload['garage_id'];
+        q += r['garage_id'];
         q += ",'";
-        q += request.payload['vehicle_name'];
+        q += r['vehicle_name'];
         q += "','";
-        q += request.payload['vehicle_make'];
+        q += r['vehicle_make'];
         q += "','";
-        q += request.payload['vehicle_model'];
+        q += r['vehicle_model'];
         q += "','";
-        q += request.payload['vehicle_year'];
+        q += r['vehicle_year'];
         q += "','";
-        q += request.payload['vehicle_color'];
+        q += r['vehicle_color'];
         q += "','";
-        q += request.payload['vehicle_init_diagnosis'];
+        q += r['vehicle_init_diagnosis'];
         q += "','";
-        q += request.payload['vehicle_license_plate'];
+        q += r['vehicle_license_plate'];
         q += "','";
-        q += request.payload['vehicle_title_status'];
+        q += r['vehicle_title_status'];
         q += "');";
  
         connection.query(q, function (error, results, fields){
