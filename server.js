@@ -345,6 +345,7 @@ server.route({
     method: 'GET',
     path: '/showVehicle',
     handler: function(request, reply){
+        var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
         connection.query(q, function (error, results, fields){
