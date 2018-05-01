@@ -37,6 +37,14 @@ server.route({
 
 server.route({
     method: 'GET',
+    path: '/mgwInClassApril4route',
+    handler: function (request, reply) {
+        reply('Responsible Party!')
+    }
+});
+
+server.route({
+    method: 'GET',
     path: '/2',
     handler: function (request, reply) {
         var cookie = request.state.session
@@ -114,7 +122,7 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            reply (q);
+            reply (request.payload);
         });
     }
 });
