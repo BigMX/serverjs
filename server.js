@@ -5,7 +5,7 @@ function sanitized(payload){
     for(var i in r){
         var key = i;
         var val = r[i];
-        if (val === parseInt(data, 10)){
+        if (val === parseInt(val, 10)){
             continue;
         }
         var newInput='';
