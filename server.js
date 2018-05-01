@@ -14,7 +14,7 @@ function sanitized(payload){
                 newInput+='\'\'';
             }
         }
-        console.log(newInput)
+        console.log(key)
         val=newInput;
     }
     return r;
