@@ -171,11 +171,15 @@ server.route({
 });
 
 server.route({
-    method: 'GET',
+    method: 'POST',
     path: '/showRepairs',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        connection.query('SELECT * FROM repairs', function (error, results, fields) {
+        var vehicle_id=request.payload['vehicle_id'];
+        var q = 'SELECT * FROM repairs WHERE vehicle_id = '
+        q+=vehicle_id;
+        q+=";";
+        connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
             //Sends back to the client the value of 1 + 1
