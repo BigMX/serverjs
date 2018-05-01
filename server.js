@@ -5,7 +5,7 @@ function sanitized(payload){
     for(var i in r){
         var key = i;
         var val = r[i];
-        var newInput='';
+        var newInput='\'';
         for(var k in val){
             if(k!='\''){
                 newInput+=k;
@@ -14,6 +14,7 @@ function sanitized(payload){
                 newInput+='\'\'';
             }
         }
+        console.log(newInput)
         val=newInput;
     }
     return r;
