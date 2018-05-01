@@ -7,10 +7,10 @@ function sanitized(payload){
         var val = r[i];
         var newInput='';
         for(var k in val){
-            if(k!="'"){
+            if(k!='\''){
                 newInput+=k;
             }else{
-                newInput+="''";
+                newInput+='\'\'';
             }
         }
         val=newInput;
@@ -390,9 +390,10 @@ server.route({
                 throw error;
         });
         console.log(q);
-        reply(q);
+        reply(r);
     }
 });
+
 
 server.route({
     method: 'POST',
