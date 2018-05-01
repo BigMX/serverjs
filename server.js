@@ -243,7 +243,7 @@ server.route({
                 if (error)
                     throw error;
                 if (JSON.stringify(results) !== '[]'){
-                    curr.id=results[0].user_id;
+                    curr.id=results[0].garage_id;
                     curr.ip=request.raw.req.connection.remoteAddress;
                 }else{
                     curr.id=0;
