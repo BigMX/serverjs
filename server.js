@@ -344,19 +344,17 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload)
         var q="";
-        q+="INSERT INTO repairs(repair_id,vehicle_id, cost, repair_status,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
-        q+=r['repair_id'];
-        q+=",";
+        q+="INSERT INTO repairs(vehicle_id, cost, repair_status,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
         q+=r['vehicle_id'];
         q+=",";
         q+=r['cost'];
-        q+=",";
+        q+=",'";
         q+=r['repair_status'];
-        q+=",";
+        q+="','";
         q+=r['repair_notes'];
-        q+=",";
+        q+="','";
         q+=r['repair_title'];
-        q+=",";
+        q+="',";
         q+=r['repair_x_cord'];
         q+=",";
         q+=r['repair_y_cord'];
@@ -420,6 +418,23 @@ server.route({
             if (error)
                 throw error;
             reply(results);
+        });
+    }
+});
+
+
+server.route({
+    method: 'GET',
+    path: '/showOneVehicle',
+    handler: function(request, reply){
+        var q=''
+        q='SELECT * FROM vehicles WHERE user_id='
+        q+=curr.id;
+        q+=";"
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+            reply(results[request.payload['position']]);
         });
     }
 });
