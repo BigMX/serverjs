@@ -10,6 +10,7 @@ function sanitized(payload){
             if(k!='\''){
                 newInput+=k;
             }else{
+                console.log("detected")
                 newInput+='\'\'';
             }
         }
