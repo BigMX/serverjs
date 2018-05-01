@@ -5,6 +5,9 @@ function sanitized(payload){
     for(var i in r){
         var key = i;
         var val = r[i];
+        if (val === parseInt(data, 10)){
+            continue;
+        }
         var newInput='';
         for(var k = 0;k<val.length;k++){
             if(val[k]!='\''){
