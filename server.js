@@ -425,7 +425,7 @@ server.route({
 
 server.route({
     method: 'GET',
-    path: '/showOneVehicle',
+    path: '/showOneVehicle/{vehicle_id}',
     handler: function(request, reply){
         var params = request.query
         var q=''
@@ -435,7 +435,7 @@ server.route({
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
-            reply(results[params.vehicle_id]);
+            reply(results[request.params.vehicle_id]);
         });
     }
 });
