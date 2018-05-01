@@ -346,7 +346,7 @@ server.route({
         var r=sanitized(request.payload)
         
         var q = "";
-        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin) VALUES (";
+        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin,vehicle_manager) VALUES (";
         q += curr.id;
         q += ",";
         q += r['garage_id'];
@@ -362,6 +362,8 @@ server.route({
         q += r['vehicle_init_diagnosis'];
         q += "','";
         q += r['vehicle_vin'];
+        q += "','";
+        q += r['vehicle_manager'];
         q += "');";
 
         connection.query(q, function (error, results, fields){
