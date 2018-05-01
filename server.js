@@ -5,16 +5,15 @@ function sanitized(payload){
     for(var i in r){
         var key = i;
         var val = r[i];
-        var newInput='\'';
-        for(var k in val){
-            if(k!='\''){
-                newInput+=k;
+        var newInput='';
+        for(var k = 0;k<val.length;k++){
+            if(val[k]!='\''){
+                newInput+=val[k];
             }else{
                 console.log("detected")
                 newInput+='\'\'';
             }
         }
-        console.log(val)
         val=newInput;
     }
     return r;
