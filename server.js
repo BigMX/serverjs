@@ -220,6 +220,7 @@ server.route({
     }
 });
 
+
 server.route({
     method: 'POST',
     path: '/login',
@@ -426,6 +427,7 @@ server.route({
     method: 'GET',
     path: '/showOneVehicle',
     handler: function(request, reply){
+        var params = request.query
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
@@ -433,7 +435,7 @@ server.route({
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
-            reply(results[request.payload['position']]);
+            reply(results[params]);
         });
     }
 });
