@@ -341,7 +341,7 @@ server.route({
     }
  });
 
- server.route({
+server.route({
     method: 'GET',
     path: '/showVehicle',
     handler: function(request, reply){
