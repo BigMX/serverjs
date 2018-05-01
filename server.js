@@ -313,7 +313,6 @@ server.route({
         // }
         var r=sanitized(request.payload)
         
-        console.log(r)
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin) VALUES (";
         q += curr.id;
@@ -337,7 +336,8 @@ server.route({
             if(error)
                 throw error;
         });
-        reply(r);
+        console.log(q)
+        reply(q);
     }
  });
 
