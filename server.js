@@ -172,7 +172,7 @@ server.route({
 
 server.route({
     method: 'POST',
-    path: '/showRepairs',
+    path: '/showRepairsForUser',
     handler: function (request, reply) {
         console.log('Server processing a / request');
         var vehicle_id=request.payload['vehicle_id'];
@@ -222,6 +222,34 @@ server.route({
                 }
                 reply(curr)
                 .state('session', cookie)
+            });
+        }
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/loginAsGarage',
+    config:{
+        handler: function (request, reply) {
+            var q="";
+            q+="SELECT user_id FROM garages WHERE email = '";
+            q+=request.payload['email'];
+            q+="' AND garage_password = '";
+            q+=request.payload['garage_password'];
+            q+="';";
+            console.log('q is: ', q);
+            connection.query(q, function (error, results, fields) {
+                if (error)
+                    throw error;
+                if (JSON.stringify(results) !== '[]'){
+                    curr.id=results[0].user_id;
+                    curr.ip=request.raw.req.connection.remoteAddress;
+                }else{
+                    curr.id=0;
+                    curr.ip='';
+                }
+                reply(curr);
             });
         }
     }
