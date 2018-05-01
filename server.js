@@ -154,7 +154,7 @@ server.route({
     handler: function (request, reply) {
         console.log('Server processing a / request');
         var q='';
-        q+='SELECT * FROM user_id=';
+        q+='SELECT * FROM users WHERE user_id=';
         q+=curr.id;
         q+=';';
         connection.query(q, function (error, results, fields) {
