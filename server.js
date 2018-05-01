@@ -308,8 +308,9 @@ server.route({
         // if(request.raw.req.connection.remoteAddress!=curr.ip){
         //     throw('you need to log in');
         // }
-        console.log(request.payload)
         var r=sanitized(request.payload)
+        
+        console.log(r)
         var q = "";
         q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin) VALUES (";
         q += curr.id;
