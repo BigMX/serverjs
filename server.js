@@ -11,10 +11,10 @@ function sanitized(payload){
                 newInput+=val[k];
             }else{
                 console.log("detected")
-                newInput+='v'
+                newInput+='\'\''
             }
         }
-        val=newInput;
+        r[i]=newInput
     }
     return r;
 }
