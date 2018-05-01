@@ -345,20 +345,20 @@ server.route({
     method: 'POST',
     path: '/addUser',
     handler: function(request, reply){
-        
+        var r=sanitized(request.payload)
         var q="";
         q+="INSERT INTO users(username, user_password,full_name,email,address,favorite_garage) VALUES ('"
-        q+=request.payload['username'];
+        q+=r['username'];
         q+="','";
-        q+=request.payload['user_password'];
+        q+=r['user_password'];
         q+="','";
-        q+=request.payload['full_name'];
+        q+=r['full_name'];
         q+="','";
-        q+=request.payload['email'];
+        q+=r['email'];
         q+="','";
-        q+=request.payload['address'];
+        q+=r['address'];
         q+="',";
-        q+=request.payload['favorite_garage'];
+        q+=r['favorite_garage'];
         q+=");";
 
         console.log("q is :",q);
@@ -402,21 +402,19 @@ server.route({
     method: 'POST',
     path: '/addPart',
     handler: function(request, reply){
-        
+        var r=sanitized(request.payload);
         var q="";
-        q+="INSERT INTO parts(vehicle_make_model,garage_id, part_id, part_name,part_serial_number,part_description) VALUES ("
-        q+=request.payload['vehicle_make_model'];
-        q+=",";
-        q+=request.payload['garage_id'];
-        q+=",";
-        q+=request.payload['part_id'];
-        q+=",";
-        q+=request.payload['part_name'];
-        q+=",";
-        q+=request.payload['part_serial_number'];
-        q+=","
-        q+=request.payload['part_description'];
-        q+=");"
+        q+="INSERT INTO parts(vehicle_make_model,garage_id, part_name,part_serial_number,part_description) VALUES ('"
+        q+=r['vehicle_make_model'];
+        q+="','";
+        q+=r['garage_id'];
+        q+="','";
+        q+=r['part_name'];
+        q+="','";
+        q+=r['part_serial_number'];
+        q+="','"
+        q+=r['part_description'];
+        q+="');"
 
         connection.query(q, function (error, results, fields){
             if (error)
