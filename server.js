@@ -1,5 +1,21 @@
 'use strict';
 
+function sanitized(payload){
+    r=payload;
+    for(var i in r){
+        var key = i;
+        var val = r[i];
+        var newInput='';
+        for(var k in val){
+            if(k!="'"){
+                newInput+=k;
+            }else{
+                newInput+="''";
+            }
+        }
+        val=newInput;
+    }
+}
 const Hapi = require('hapi');
 
 const server = new Hapi.Server();
@@ -122,7 +138,7 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            reply (request.payload);
+            reply (sanitized(request.payload));
         });
     }
 });
