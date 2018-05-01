@@ -315,8 +315,6 @@ server.route({
         q += ",";
         q += r['garage_id'];
         q += ",'";
-        q += r['vehicle_name'];
-        q += "','";
         q += r['vehicle_make'];
         q += "','";
         q += r['vehicle_model'];
@@ -327,9 +325,7 @@ server.route({
         q += "','";
         q += r['vehicle_init_diagnosis'];
         q += "','";
-        q += r['vehicle_license_plate'];
-        q += "','";
-        q += r['vehicle_title_status'];
+        q += r['vehicle_vin'];
         q += "');";
 
         connection.query(q, function (error, results, fields){
