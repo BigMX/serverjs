@@ -207,7 +207,7 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            result=results;
+            r=results;
         });
         var q = 'SELECT * FROM garages g1 INNER JOIN parts p1 ON g1.garage_id=p1.garage_id WHERE g1.garage_id = '
         q+=curr.id;
