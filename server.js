@@ -144,7 +144,7 @@ server.route({
 });
 
 server.route({
-    method: 'POST',
+    method: 'PUT',
     path: '/favorite',
     handler: function (request, reply) {
         console.log('Server processing a / request');
@@ -152,7 +152,7 @@ server.route({
         q+='UPDATE users SET favorite_garage =';
         q+=request.payload['favorite_garage'];
         q+=' WHERE user_id=';
-        q+=request.payload['user_id'];
+        q+=curr.id;
         q+=';';
         connection.query(q, function (error, results, fields) {
             if (error)
