@@ -330,12 +330,14 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload)
         var q="";
-        q+="INSERT INTO repairs(vehicle_id, cost, repair_status,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
+        q+="INSERT INTO repairs(vehicle_id, cost, repair_status,repair_date,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
         q+=r['vehicle_id'];
         q+=",";
         q+=r['cost'];
         q+=",'";
         q+=r['repair_status'];
+        q+="','";
+        q+=r['repair_date'];
         q+="','";
         q+=r['repair_notes'];
         q+="','";
