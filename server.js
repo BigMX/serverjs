@@ -326,10 +326,10 @@ server.route({
 
 server.route({
     method: 'DELETE',
-    path: '/deleteVehicle',
+    path: '/deleteVehicle/{vehicle_id}',
     handler: function(request, reply){
         var q='DELETE FROM vehicles WHERE vehicle_id='
-        q+=request.payload['vehicle_id'];
+        q+=request.params.vehicle_id;
         q+=';';
         connection.query(q, function (error, results, fields) {
             if (error)
