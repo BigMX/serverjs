@@ -373,7 +373,7 @@ server.route({
         var r=sanitized(request.payload)
         var q="";
         q+="INSERT INTO repairs(vehicle_id, cost, repair_status,repair_date,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
-        q+=r['vehicle_id'];
+        q+=r['vehicle_id']-1;
         q+=",";
         q+=r['cost'];
         q+=",'";
