@@ -370,6 +370,7 @@ server.route({
             if (error)
                 throw error;
         });
+        console.log(q);
         reply({'status':200});
     }
 });
