@@ -304,38 +304,9 @@ server.route({
     }
 });
 
-//A new route to test connectivity to MySQL
 server.route({
-    method: 'GET',
-    path: '/getData',
-    handler: function (request, reply) {
-        console.log('Server processing a /getData request');
-
-        //Creates the connection
-
-        //Does a simple select, not from a table, but essentially just uses MySQL
-        //to add 1 + 1.
-        //function (error, results, fields){...} is a call-back function that the
-        //MySQL lib uses to send info back such as if there was an error, and/or the
-        //actual results.
-        connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-            if (error)
-                throw error;
-            //Sends back to the client the value of 1 + 1
-            reply ('The solution is ' + results[0].solution);
-
-            //for exemplar purposes, stores the returned value in a variable to be
-            //printed to log
-            var solution = results[0].solution;
-            console.log('The solution is: ', solution);
-        });
-        //close the connection to MySQL
-    }
-});
-
-server.route({
-    method: 'POST',
-    path: '/user',
+    method: 'DELETE',
+    path: '/deleteVehicle',
     handler: function(request, reply){
         reply('User Added: '+request.payload['lName'] +', '+request.payload['fName']);
     }
@@ -437,7 +408,7 @@ server.route({
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
-            reply(results);
+            reply(results[request.params.vehicle_id]);
         });
     }
 });
