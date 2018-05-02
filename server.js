@@ -461,7 +461,7 @@ server.route({
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
-        q+=" AND vehicle_id=;"
+        q+=" AND vehicle_id="
         q+=request.params.vehicle_id;
         q+=";";
         connection.query(q, function (error, results, fields){
