@@ -435,7 +435,7 @@ server.route({
                 throw error;
         });
         console.log(q)
-        reply(q);
+        reply({status:200});
     }
  });
 
