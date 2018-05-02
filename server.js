@@ -42,7 +42,7 @@ server.state('session', {
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
 var mysql      = require('mysql');
-var curr    = {ip:null,id:''};
+var curr    = {ip:null,id:'',type=null};
 var connection = mysql.createConnection({
 
     //host will be the name of the service from the docker-compose file. 
@@ -344,6 +344,7 @@ server.route({
                 if (JSON.stringify(results) !== '[]'){
                     curr.id=results[0].user_id;
                     curr.ip=request.raw.req.connection.remoteAddress;
+                    curr.type='customer';
                 }else{
                     curr.id=0;
                     curr.ip='';
@@ -373,6 +374,7 @@ server.route({
                 if (JSON.stringify(results) !== '[]'){
                     curr.id=results[0].garage_id;
                     curr.ip=request.raw.req.connection.remoteAddress;
+                    curr.type='garage';
                 }else{
                     curr.id=0;
                     curr.ip='';
@@ -504,8 +506,8 @@ server.route({
         q += r['vehicle_vin'];
         q += "','";
         q += r['vehicle_manager'];
-	q += "','";
-	q += r['garage_id']
+	    q += "','";
+	    q += r['garage_id']
         q += "');";
 
         connection.query(q, function (error, results, fields){
