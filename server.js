@@ -373,7 +373,7 @@ server.route({
         var r=sanitized(request.payload)
         var q="";
         q+="INSERT INTO repairs(vehicle_id, cost, repair_status,repair_date,repair_notes,repair_title,repair_x_cord,repair_y_cord) VALUES ("
-        q+=r['vehicle_id']-1;
+        q+=r['vehicle_id'];
         q+=",";
         q+=r['cost'];
         q+=",'";
@@ -461,11 +461,13 @@ server.route({
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
-        q+=";"
+        q+=" AND vehicle_id=;"
+        q+=request.params.vehicle_id;
+        q+=";";
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
-            reply(results[request.params.vehicle_id]);
+            reply(results);
         });
     }
 });
