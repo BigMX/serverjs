@@ -306,9 +306,24 @@ server.route({
 
 server.route({
     method: 'DELETE',
-    path: '/deleteVehicle',
+    path: '/deleteVehicle/{vehicle_id}',
     handler: function(request, reply){
-        reply('User Added: '+request.payload['lName'] +', '+request.payload['fName']);
+        var q='DELETE FROM Person WHERE vehicle_id='
+        q+=request.params.vehicle_id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+        });    
+        var q=''
+        q='SELECT * FROM vehicles WHERE user_id='
+        q+=curr.id;
+        q+=";"
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+            reply(results);
+        });
     }
 });
 
