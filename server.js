@@ -577,3 +577,11 @@ server.start((err) => {
     console.log(`Server running at: ${server.info.uri}`);
 });
 
+server.route({
+    method: 'GET',
+    path: '/testHash',
+    handler: function (request, reply) {
+        const res = encryptPassword('password123');
+        reply('Hello, ' + res + '!');
+    }
+ });
