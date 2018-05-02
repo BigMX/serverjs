@@ -208,17 +208,26 @@ server.route({
 });
 
 server.route({
-    method: 'POST',
-    path: '/showRepairsForGarage',
+    method: 'GET',
+    path: '/showGarages',
     handler: function (request, reply) {
         console.log('Server processing a / request');
-        var q = 'SELECT * FROM repairs NATURAL JOIN vehicles NATURAL JOIN garages WHERE garage_id = '
+        var q = 'SELECT * FROM garages g1 INNER JOIN vehicles v1 ON g1.garage_id=v1.garage_id WHERE g1.garage_id = '
+        q+=curr.id;
+        q+=";";
+        var r;
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            result=results;
+        });
+        var q = 'SELECT * FROM garages g1 INNER JOIN parts p1 ON g1.garage_id=p1.garage_id WHERE g1.garage_id = '
         q+=curr.id;
         q+=";";
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            reply (results);
+            reply({parts:results,vehicles:r})
         });
     }
 });
