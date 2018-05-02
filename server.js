@@ -330,9 +330,9 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload)
         var q="";
-        q+="UPDATE repairs SET repair_status =";
+        q+="UPDATE repairs SET repair_status ='";
         q+=request.params.repair_status;
-        q+=' WHERE repair_id=';
+        q+="' WHERE repair_id=";
         q+=request.params.repair_id;
         q+=';';
         connection.query(q, function (error, results, fields){
