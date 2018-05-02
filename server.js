@@ -325,6 +325,25 @@ server.route({
 });
 
 server.route({
+    method: 'GET',
+    path: '/updateRepair/{repair_id}/{repair_status}',
+    handler: function(request, reply){
+        var r=sanitized(request.payload)
+        var q="";
+        q+="UPDATE repairs SET repair_status =";
+        q+=request.params.repair_status;
+        q+=' WHERE repair_id=';
+        q+=request.params.repair_id;
+        q+=';';
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply(q);
+    }
+});
+
+server.route({
     method: 'POST',
     path: '/addRepair',
     handler: function(request, reply){
@@ -347,14 +366,14 @@ server.route({
         q+=",";
         q+=r['repair_y_cord'];
         q+=");";
-
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
         });
-        reply(q);
+        reply({'status':200});
     }
 });
+//server.route()
 server.route({
     method: 'POST',
     path: '/addVehicle',
@@ -540,6 +559,14 @@ server.route({
     }
 });
 
+server.route({
+    method: 'GET',
+    path: '/logout',
+    handler: function (request, reply) {
+        curr.id=0;
+        curr.ip=null;
+    }
+});
 
 server.start((err) => {
 
@@ -548,3 +575,4 @@ server.start((err) => {
     }
     console.log(`Server running at: ${server.info.uri}`);
 });
+
