@@ -78,7 +78,7 @@ server.route({
     path: '/2',
     handler: function (request, reply) {
         var cookie = request.state.session
-        console.log('Server processing a / request');
+        console.log('Server processing a /2 request');
         reply(cookie.username);
     }
 });
@@ -87,14 +87,13 @@ server.route({
     method: 'GET',
     path: '/showParts',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showParts request');
         var q='SELECT * FROM parts WHERE garage_id='
         q+=curr.id;
         q+=';';
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-            //Sends back to the client the value of 1 + 1
             reply (results);
         });
     }
@@ -104,7 +103,7 @@ server.route({
     method: 'GET',
     path: '/showUsers',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showUsers request');
         connection.query('SELECT * FROM users', function (error, results, fields) {
             if (error)
                 throw error;
@@ -118,7 +117,7 @@ server.route({
     method: 'GET',
     path: '/showTimeslots',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showTimeslots request');
         var q='';
         q+='SELECT timeslot_time FROM timeslots'
         connection.query(q, function (error, results, fields) {
@@ -133,10 +132,28 @@ server.route({
     method: 'PUT',
     path: '/favorite',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /favorite request');
+	console.log(request.payload);
         var q='';
         q+='UPDATE users SET favorite_garage =';
-        q+=request.payload['favorite_garage'];
+        q+=request.payload;
+        q+=' WHERE user_id=';
+        q+=curr.id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (sanitized(request.payload));
+        });
+    }
+});
+server.route({
+    method: 'PUT',
+    path: '/unfavorite',
+    handler: function (request, reply) {
+        console.log('Server processing a /unfavorite request');
+        var q='';
+        q+='UPDATE users SET favorite_garage = 0';
         q+=' WHERE user_id=';
         q+=curr.id;
         q+=';';
@@ -148,11 +165,64 @@ server.route({
     }
 });
 
+
+server.route({
+   method: 'PUT',
+   path: '/updateAppointment',
+   handler: function(request, reply){
+       var query = "";
+       query += "UPDATE appoinments SET appt_type = ";
+       query += request.payload['appt_type'];
+       query += ", user_comments = ";
+       query += request.payload['user_comments'];
+       query += " WHERE user_id = ";
+       query += request.payload['user_id'];
+       query += " AND timeslot_id = ";
+       query += request.payload['timeslot_id'];
+       query += " AND garage_id = ";
+       query += request.payload['garage_id'];
+       query += ";";
+
+       connection.query(query, function (error, results, fields){
+           if(error)
+               throw error;
+       });
+       reply(query);
+   }
+});
+
+server.route({
+   method: 'POST',
+   path: '/makeAppointment',
+   handler: function(request, reply){
+       var r=sanitized(request.payload);
+       var q="";
+       q+="INSERT INTO appointments(user_id,timeslot_id,garage_id,appt_type,user_comments) VALUES ('"
+       q+=r['user_id'];
+       q+="','";
+       q+=r['timeslot_id'];
+       q+="','";
+       q+=r['garage_id'];
+       q+="','";
+       q+=r['appt_type'];
+       q+="','";
+       q+=r['user_comments'];
+       q+="');";
+
+       connection.query(q, function (error, results, fields){
+           if (error)
+               throw error;
+       });
+       console.log(q);
+       reply(r);
+   }
+});
+
 server.route({
     method: 'GET',
     path: '/showUserInfo',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showUserInfo request');
         var q='';
         q+='SELECT * FROM users WHERE user_id=';
         q+=curr.id;
@@ -169,7 +239,7 @@ server.route({
     method: 'POST',
     path: '/reserve',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /reserve request');
         var q="";
         q+="INSERT INTO timeslots(garage_id,timeslot_time,timeslot_cost) VALUES ("
         q+=request.payload['garage_id'];
@@ -191,7 +261,7 @@ server.route({
     method: 'GET',
     path: '/showRepairsForUser/{vehicle_id}',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showRepairsForUser request');
         var vehicle_id=request.params.vehicle_id;
         var q = 'SELECT * FROM repairs WHERE vehicle_id = '
         q+=vehicle_id;
@@ -224,7 +294,7 @@ server.route({
     method: 'GET',
     path: '/showGarages',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
+        console.log('Server processing a /showGarages request');
         var q = 'SELECT * FROM garages g1 INNER JOIN vehicles v1 ON g1.garage_id=v1.garage_id WHERE g1.garage_id = '
         q+=curr.id;
         q+=";";
@@ -252,7 +322,7 @@ server.route({
     config:{
         handler: function (request, reply) {
             var cookie=request.state.session;
-            console.log('Server processing a / request');
+            console.log('Server processing a /login request');
             console.log('request: ', request);
             var q="";
             q+="SELECT user_id FROM users WHERE email = '";
@@ -336,7 +406,14 @@ server.route({
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
-        });    
+        });
+       var q = 'DELETE FROM repairs WHERE vehicle_id = ';
+       q += requests.params.vehicle_id;
+       q+=';';
+       connection.query(q, function (error, results, fields) {
+           if (error)
+               throw error;
+       });    
         var q=''
         q='SELECT * FROM vehicles WHERE user_id='
         q+=curr.id;
@@ -353,6 +430,7 @@ server.route({
     method: 'PUT',
     path: '/updateRepair',
     handler: function(request, reply){
+	console.log(request.payload);
         var r=sanitized(request.payload)
         var q="";
         q+="UPDATE repairs SET repair_status ='";
@@ -364,7 +442,7 @@ server.route({
             if (error)
                 throw error;
         });
-        reply({status:200});
+	reply({status:200});
     }
 });
 
@@ -410,10 +488,8 @@ server.route({
         var r=sanitized(request.payload)
         
         var q = "";
-        q += "INSERT INTO vehicles(user_id, garage_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin,vehicle_manager) VALUES (";
+        q += "INSERT INTO vehicles(user_id, vehicle_make, vehicle_model, vehicle_year, vehicle_color, vehicle_init_diagnosis, vehicle_vin, vehicle_manager, garage_id) VALUES (";
         q += curr.id;
-        q += ",";
-        q += r['garage_id'];
         q += ",'";
         q += r['vehicle_make'];
         q += "','";
@@ -428,6 +504,8 @@ server.route({
         q += r['vehicle_vin'];
         q += "','";
         q += r['vehicle_manager'];
+	q += "','";
+	q += r['garage_id']
         q += "');";
 
         connection.query(q, function (error, results, fields){
@@ -444,12 +522,13 @@ server.route({
     path: '/showVehicle',
     handler: function(request, reply){
         var q=''
-        q='SELECT * FROM vehicles WHERE user_id='
+        q='SELECT * FROM vehicles WHERE user_id = '
         q+=curr.id;
         q+=";"
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
+	    console.log(results);
             reply(results);
         });
     }
@@ -537,23 +616,25 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload);
         var q="";
-        q+="INSERT INTO parts(vehicle_make_model,garage_id, part_name,part_serial_number,part_description) VALUES ('"
-        q+=r['vehicle_make_model'];
+        q+="INSERT INTO parts(vehicle_make_model, garage_id, customer,  part_name, part_serial_number, part_status) VALUES ('"
+	q+=r['vehicle_make_model'];
         q+="',";
         q+=curr.id
         q+=",'";
+	q+=r['customer'];
+	q+="','";
         q+=r['part_name'];
         q+="','";
         q+=r['part_serial_number'];
         q+="','"
-        q+=r['part_description'];
+        q+=r['part_status'];
         q+="');"
 
         connection.query(q, function (error, results, fields){
             if (error)
                 throw error;
         });
-        reply(q);
+         reply({"status": 200});;
     }
 });
 server.route({
