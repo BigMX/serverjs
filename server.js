@@ -42,7 +42,7 @@ server.state('session', {
 //Initialize the mysql variable and create the connection object with necessary values
 //Uses the https://www.npmjs.com/package/mysql package.
 var mysql      = require('mysql');
-var curr    = {ip:null,id:'',type=null};
+var curr    = {ip:null,id:'',type=''};
 var connection = mysql.createConnection({
 
     //host will be the name of the service from the docker-compose file. 
