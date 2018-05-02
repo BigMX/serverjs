@@ -104,18 +104,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'GET',
-    path: '/showGarages',
-    handler: function (request, reply) {
-        console.log('Server processing a / request');
-        connection.query('SELECT * FROM garages', function (error, results, fields) {
-            if (error)
-                throw error;
-            reply (results);
-        });
-    }
-});
 
 server.route({
     method: 'GET',
