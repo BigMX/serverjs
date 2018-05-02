@@ -362,7 +362,7 @@ server.route({
             if (error)
                 throw error;
         });
-        reply(q);
+        reply({status:200});
     }
 });
 
