@@ -327,7 +327,7 @@ server.route({
 });
 
 server.route({
-    method: 'DELETE',
+    method: 'PUT',
     path: '/deleteVehicle/{vehicle_id}',
     handler: function(request, reply){
         var q='DELETE FROM vehicles WHERE vehicle_id='
