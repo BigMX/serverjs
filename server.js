@@ -604,8 +604,13 @@ server.route({
     method: 'GET',
     path: '/testHash',
     handler: function (request, reply) {
-        const res = encryptPassword('password123');
-        console.log('res', res);
+        const res = encryptPassword('password123')
+        .then(res => {
+            console.log('res: ', res)
+        })
+        .catch(err => {
+          console.log('err: ', err)
+        })
         reply('Hello, ' + res + '!');
     }
  });
