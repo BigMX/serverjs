@@ -348,15 +348,15 @@ server.route({
 });
 
 server.route({
-    method: 'GET',
-    path: '/updateRepair/{repair_id}/{repair_status}',
+    method: 'PUT',
+    path: '/updateRepair',
     handler: function(request, reply){
         var r=sanitized(request.payload)
         var q="";
         q+="UPDATE repairs SET repair_status ='";
-        q+=request.params.repair_status;
+        q+=r['repair_status'];
         q+="' WHERE repair_id=";
-        q+=request.params.repair_id;
+        q+=r['repair_id'];
         q+=';';
         connection.query(q, function (error, results, fields){
             if (error)
@@ -555,7 +555,7 @@ server.route({
     }
 });
 server.route({
-    method: 'POST',
+    method: 'PUT',
     path: '/updateDescription',
     handler: function(request, reply){
         var r=sanitized(request.payload);
