@@ -220,6 +220,22 @@ server.route({
 
 server.route({
     method: 'GET',
+    path: '/showGarageForUser/{garage_id}',
+    handler: function (request, reply) {
+        console.log('Server processing a / request');
+        var q = 'SELECT * FROM garages WHERE garage_id = '
+        q+=request.params.garage_id;
+        q+=";";
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
     path: '/showGarages',
     handler: function (request, reply) {
         console.log('Server processing a / request');
