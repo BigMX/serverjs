@@ -681,7 +681,7 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload);
         var timeslot=r['timeslot_time'];
-        var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ='"
+        var q1="SELECT timeslots.timeslot_time FROM timeslots INNER JOIN garages ON garages.garage_id WHERE timeslots.timeslot_time ='"
         q1+=timeslot;
         q1+="';";
         var stat={"status": 0};
@@ -701,17 +701,19 @@ server.route({
                  q+=",'"
                  q+=timeslot;
                  q+="',"
-                 q+=r['timeslot_Booked']
+                 q+='1'
                  q+=");";         
                 console.log(q);
                  connection.query(q, function (error, results, fields){
                     if (error)
                         throw error;
+		reply({"status": 1});
                 });
             }
+	    else{
+		reply(stat);
+	    }
         });
-        
-        reply(stat);
     }
 });
 
@@ -830,7 +832,7 @@ server.route({
     path: '/showAllGarages',
     handler: function (request, reply) {
         console.log('Server processing a /showAllGarages request');
-        var q='SELECT garage_id garage_name, garage_location, garage_description FROM garages;'
+        var q='SELECT garage_id, garage_name, garage_location, garage_description FROM garages;'
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
@@ -850,6 +852,21 @@ server.route({
             if (error)
                 throw error;
 	    reply({results});
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/showAllUserCars',
+    handler: function (request, reply) {
+        console.log('Server processing a /showAllUserCars request');
+        var q='SELECT * FROM vehicles NATURAL JOIN users WHERE user_id = ';
+        q += curr.id;
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
         });
     }
 });
