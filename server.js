@@ -695,7 +695,7 @@ server.route({
                  q+=r['garage_id'];
                  q+=",'"
                  q+=timeslot;
-                 q+="';";         
+                 q+="');";         
                 console.log(q);
                  connection.query(q, function (error, results, fields){
                     if (error)
@@ -705,7 +705,7 @@ server.route({
             }
         });
         
-        reply(status);;
+        reply(status);
     }
 });
 
