@@ -702,7 +702,7 @@ server.route({
                     if (error)
                     throw error;
                 });
-                status={"status": 'yes'};
+                status.status='yes';
             }
         });
         
