@@ -685,23 +685,25 @@ server.route({
         q1+=timeslot;
         q1+="';";
         connection.query(q1, function (error, results, fields){
-            if (error)
+            if (error){
                 throw error;
-        });
-        console.log(q1);
-        var status={"status": 'no'};
-        if(results!=[]){
-            var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
-            q+=r['garage_id'];
-            q+=",'"
-            q+=timeslot;
-            q+="';";
-            connection.query(q, function (error, results, fields){
+            }
+            console.log(q1);
+            var status={"status": 'no'};
+            if(results!=[]){
+                var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
+                 q+=r['garage_id'];
+                 q+=",'"
+                 q+=timeslot;
+                 q+="';";
+                 connection.query(q, function (error, results, fields){
                 if (error)
                     throw error;
-            });
-            status={"status": 'yes'};
-        }
+                });
+                status={"status": 'yes'};
+            }
+        });
+        
         console.log(q);
         reply(status);;
     }
