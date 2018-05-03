@@ -691,7 +691,8 @@ server.route({
             }
             console.log(results);
             
-            if(results!=[]){
+            if(results==[]){
+                var status={"status": 'no'};
                 var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
                  q+=r['garage_id'];
                  q+=",'"
@@ -700,9 +701,8 @@ server.route({
                 console.log(q);
                  connection.query(q, function (error, results, fields){
                     if (error)
-                    throw error;
+                        throw error;
                 });
-                status.status='yes';
             }
         });
         
