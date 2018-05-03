@@ -689,7 +689,7 @@ server.route({
             if (error){
                 throw error;
             }
-            console.log(results.timeslot_time);
+            console.log(results);
             
             if(results.timeslot_time!=timeslot){
                 console.log('hahah');
