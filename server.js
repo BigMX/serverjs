@@ -689,9 +689,9 @@ server.route({
             if (error){
                 throw error;
             }
-            console.log(q1);
+            console.log(results.timeslot_id);
             
-            if(results.timeslot_id<=0){
+            if(results.timeslot_id==null){
                 var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
                  q+=r['garage_id'];
                  q+=",'"
