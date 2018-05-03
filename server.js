@@ -754,6 +754,7 @@ server.route({
     handler: function (request, reply) {
         curr.id=0;
         curr.ip=null;
+        curr.type=null;
     }
 });
 
