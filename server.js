@@ -681,7 +681,7 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload);
         var timeslot=r['timeslot_time'];
-        var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ='"
+        var q1="SELECT timeslot_id FROM timeslots WHERE timeslot_time ='"
         q1+=timeslot;
         q1+="';";
         var status={"status": 'no'};
@@ -691,7 +691,7 @@ server.route({
             }
             console.log(q1);
             
-            if(results==[]){
+            if(results.timeslot_id<=0){
                 var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
                  q+=r['garage_id'];
                  q+=",'"
