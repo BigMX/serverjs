@@ -681,13 +681,14 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload);
         var timeslot=r['timeslot_time'];
-        var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ="
+        var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ='"
         q1+=timeslot;
-        q1+=";";
+        q1+="';";
         connection.query(q1, function (error, results, fields){
             if (error)
                 throw error;
         });
+        console.log(q1);
         var status={"status": 'no'};
         if(results!=[]){
             var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
@@ -701,6 +702,7 @@ server.route({
             });
             status={"status": 'yes'};
         }
+        console.log(q);
         reply(status);;
     }
 });
