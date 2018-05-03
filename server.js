@@ -689,9 +689,9 @@ server.route({
             if (error){
                 throw error;
             }
-            console.log(results.timeslot_Booked);
+            console.log(results);
             
-            if(results.timeslot_Booked!=1){
+            if(results==null){
                 console.log('hahah');
                 var status={"status": 'yes'};
                 var q="INSERT INTO timeslots(garage_id,timeslot_time,timeslot_Booked) VALUES("
