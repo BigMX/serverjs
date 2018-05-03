@@ -684,12 +684,13 @@ server.route({
         var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ='"
         q1+=timeslot;
         q1+="';";
+        var status={"status": 'no'};
         connection.query(q1, function (error, results, fields){
             if (error){
                 throw error;
             }
             console.log(q1);
-            var status={"status": 'no'};
+            
             if(results!=[]){
                 var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
                  q+=r['garage_id'];
