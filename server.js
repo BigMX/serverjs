@@ -830,7 +830,7 @@ server.route({
     path: '/showAllGarages',
     handler: function (request, reply) {
         console.log('Server processing a /showAllGarages request');
-        var q='SELECT garage_name, garage_location, garage_description FROM garages;'
+        var q='SELECT garage_id garage_name, garage_location, garage_description FROM garages;'
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
