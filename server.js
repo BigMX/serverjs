@@ -693,7 +693,7 @@ server.route({
             var str=JSON.stringify(results);
             
             console.log(str);
-            if(str==null){
+            if(str=='[]'){
                 console.log('hahah');
                 stat.status=1;
                 var q="INSERT INTO timeslots(garage_id,timeslot_time,timeslot_Booked) VALUES("
