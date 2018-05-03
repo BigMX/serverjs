@@ -590,6 +590,25 @@ server.route({
 });
 
 server.route({
+    method: 'GET',
+    path: '/showOneVehicleGarage/{vehicle_id}',
+    handler: function(request, reply){
+        var q=''
+        q='SELECT * FROM vehicles WHERE garage__id='
+        q+=curr.id;
+        q+=" AND vehicle_id="
+        q+=request.params.vehicle_id;
+        q+=";";
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+            reply(results);
+        });
+    }
+});
+
+
+server.route({
     method: 'POST',
     path: '/addUser',
     handler: function(request, reply){
@@ -754,6 +773,7 @@ server.route({
     handler: function (request, reply) {
         curr.id=0;
         curr.ip=null;
+	curr.type=null;
     }
 });
 
