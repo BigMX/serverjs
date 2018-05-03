@@ -85,11 +85,27 @@ server.route({
 
 server.route({
     method: 'GET',
-    path: '/showParts',
+    path: '/showPartsForGarage',
     handler: function (request, reply) {
         console.log('Server processing a /showParts request');
         var q='SELECT * FROM parts WHERE garage_id='
         q+=curr.id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/showPartsForUser',
+    handler: function (request, reply) {
+        console.log('Server processing a /showPartsForUser request');
+        var q='SELECT * FROM parts WHERE parts.customer ='
+        q+= curr.id;
         q+=';';
         connection.query(q, function (error, results, fields) {
             if (error)
@@ -231,6 +247,24 @@ server.route({
             if (error)
                 throw error;
             reply (results);
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/getUserType',
+    handler: function (request, reply) {
+        console.log('Server processing a /getUserType request');
+        var q='';
+        q+='SELECT * FROM users WHERE user_id=';
+        q+=curr.id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+	console.log(curr);            
+	reply (curr);
         });
     }
 });
@@ -410,7 +444,7 @@ server.route({
                 throw error;
         });
        var q = 'DELETE FROM repairs WHERE vehicle_id = ';
-       q += requests.params.vehicle_id;
+       q += request.params.vehicle_id;
        q+=';';
        connection.query(q, function (error, results, fields) {
            if (error)
@@ -685,6 +719,97 @@ server.start((err) => {
         throw err;
     }
     console.log(`Server running at: ${server.info.uri}`);
+});
+
+server.route({
+    method: 'PUT',
+    path: '/updatePartStatus',
+    handler: function(request, reply){
+        console.log(request.payload);
+        var r=sanitized(request.payload)
+        var q="";
+        q+="UPDATE parts SET part_status ='";
+        q+=r['part_status'];
+        q+="' WHERE part_id=";
+        q+=r['part_id'];
+        q+=';';
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply({status:200});
+    }
+});
+
+server.route({
+    method: 'PUT',
+    path: '/addCarToGarage',
+    handler: function(request, reply){
+        console.log(request.payload);
+        var r=sanitized(request.payload)
+        var q="";
+        q+="UPDATE vehicles SET garage_id ='";
+        q+=r['garage_id'];
+        q+="' WHERE vehicle_id=";
+        q+=r['vehicle_id'];
+        q+=';';
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply({status:200});
+    }
+});
+
+server.route({
+    method: 'PUT',
+    path: '/attachRepair',
+    handler: function(request, reply){
+        console.log(request.payload);
+        var r=sanitized(request.payload)
+        var q="";
+        q+="UPDATE parts SET repair_id ='";
+        q+=r['repair_id'];
+        q+="' WHERE part_id=";
+        q+=r['part_id'];
+        q+=';';
+	console.log("Processing a /attachRepair ");
+	console.log("query = ", q);
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        reply({status:200});
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/showAllGarages',
+    handler: function (request, reply) {
+        console.log('Server processing a /showAllGarages request');
+        var q='SELECT garage_name, garage_location, garage_description FROM garages;'
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply ({"garages": results});
+        });
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/lengthTable',
+    handler: function(request, reply){
+        var q="";
+        q+="SELECT repair_id FROM repairs ORDER BY repair_id DESC LIMIT 1;";
+	console.log(q);
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+	    reply({results});
+        });
+    }
 });
 
 server.route({
