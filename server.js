@@ -673,6 +673,38 @@ server.route({
          reply({"status": 200});;
     }
 });
+
+
+server.route({
+    method: 'POST',
+    path: '/addTimeSlot',
+    handler: function(request, reply){
+        var r=sanitized(request.payload);
+        var timeslot=r['timeslot_time'];
+        var q1="SELECT timeslot_time FROM timeslots WHERE timeslot_time ="
+        q1+=timeslot;
+        q1+=";";
+        connection.query(q1, function (error, results, fields){
+            if (error)
+                throw error;
+        });
+        var status={"status": 'no'};
+        if(results!=[]){
+            var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
+            q+=r['garage_id'];
+            q+=",'"
+            q+=timeslot;
+            q+="';";
+            connection.query(q, function (error, results, fields){
+                if (error)
+                    throw error;
+            });
+            status={"status": 'yes'};
+        }
+        reply(status);;
+    }
+});
+
 server.route({
     method: 'PUT',
     path: '/updateDescription',
