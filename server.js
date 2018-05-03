@@ -681,7 +681,7 @@ server.route({
     handler: function(request, reply){
         var r=sanitized(request.payload);
         var timeslot=r['timeslot_time'];
-        var q1="SELECT timeslot_id FROM timeslots WHERE timeslot_time ='"
+        var q1="SELECT timeslot_Booked FROM timeslots WHERE timeslot_time ='"
         q1+=timeslot;
         q1+="';";
         var status={"status": 'no'};
@@ -689,16 +689,18 @@ server.route({
             if (error){
                 throw error;
             }
-            console.log(results);
+            console.log(results.timeslot_Booked);
             
-            if(results==[]){
+            if(results.timeslot_Booked!=1){
                 console.log('hahah');
                 var status={"status": 'yes'};
-                var q="INSERT INTO timeslots(garage_id,timeslot_time) VALUES("
+                var q="INSERT INTO timeslots(garage_id,timeslot_time,timeslot_Booked) VALUES("
                  q+=r['garage_id'];
                  q+=",'"
                  q+=timeslot;
-                 q+="');";         
+                 q+="',"
+                 q+=r['timeslot_Booked']
+                 q+=");";         
                 console.log(q);
                  connection.query(q, function (error, results, fields){
                     if (error)
