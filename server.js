@@ -594,7 +594,7 @@ server.route({
     path: '/showOneVehicleGarage/{vehicle_id}',
     handler: function(request, reply){
         var q=''
-        q='SELECT * FROM vehicles WHERE garage__id='
+        q='SELECT * FROM vehicles WHERE garage_id='
         q+=curr.id;
         q+=" AND vehicle_id="
         q+=request.params.vehicle_id;
