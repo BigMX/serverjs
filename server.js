@@ -49,7 +49,7 @@ var connection = mysql.createConnection({
     host     : 'mysql',
     user     : 'root',
     password : 'go_away!',
-    database : 'cse3330'
+    database : 'wx'
 });
 
 
@@ -61,9 +61,57 @@ server.route({
     handler: function (request, reply) {
         var cookie = request.state['session']
         console.log('Server processing a / request');
-        reply('Hello Future Studio').unstate('session')
+        reply('Hello Future Studio222').unstate('session')
     }
 });
+
+server.route({
+    method: 'GET',
+    path:'/showPeople',
+    handler:function(request,reply){
+        console.log('showing people');
+        connection.query("SELECT * FROM People", function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+})
+
+server.route({
+    method: 'POST',
+    path:'/addPeople',
+    handler:function(request,reply){
+        console.log('adding people');
+        var q = 'INSERT INTO People(people_name) VALUES("'
+        q+=request.payload['nickName'];
+        q+='")';
+        console.log(q);
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 server.route({
     method: 'GET',
@@ -590,6 +638,25 @@ server.route({
 });
 
 server.route({
+    method: 'GET',
+    path: '/showOneVehicleGarage/{vehicle_id}',
+    handler: function(request, reply){
+        var q=''
+        q='SELECT * FROM vehicles WHERE garage_id='
+        q+=curr.id;
+        q+=" AND vehicle_id="
+        q+=request.params.vehicle_id;
+        q+=";";
+        connection.query(q, function (error, results, fields){
+            if (error)
+                throw error;
+            reply(results);
+        });
+    }
+});
+
+
+server.route({
     method: 'POST',
     path: '/addUser',
     handler: function(request, reply){
@@ -754,7 +821,7 @@ server.route({
     handler: function (request, reply) {
         curr.id=0;
         curr.ip=null;
-        curr.type=null;
+	curr.type=null;
     }
 });
 
