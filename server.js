@@ -64,7 +64,7 @@ server.route({
     handler: function (request, reply) {
         var cookie = request.state['session']
         console.log('Server processing a / request');
-        reply('Hello Future Studio222').unstate('session')
+        reply('Hello Future Studio222')
     }
 })
 }else{
@@ -74,7 +74,7 @@ server.route({
         handler: function (request, reply) {
             var cookie = request.state['session']
             console.log('Server processing a / request');
-            reply('Hello bad Studio222').unstate('session')
+            reply(t1)
             console.log(t1);
         }
     })
