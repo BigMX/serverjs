@@ -75,6 +75,7 @@ server.route({
             var cookie = request.state['session']
             console.log('Server processing a / request');
             reply('Hello bad Studio222').unstate('session')
+            console.log(t1);
         }
     })
 }
