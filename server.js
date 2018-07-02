@@ -53,15 +53,28 @@ var connection = mysql.createConnection({
 });
 
 var aId=0
+var schedule = require('node-schedule');
 
-connection.connect();
 var t2 = new Date("Mon Jul 02 2018 05:49:09 GMT+0000 (UTC)")
 var t3 = new Date("Mon Jul 02 2018 05:26:09 GMT+0000 (UTC)")
-if(new Date()>t3){
-    connection.query("select people_id from People order by rand() limit 1;", function (error, results, fields){
-        aId=JSON.stringify(results);
-    });
+
+function scheduleCronstyle(){
+    schedule.scheduleJob('* * * * * 1', function(){
+        if(new Date()>t3){
+            connection.query("select people_id from People order by rand() limit 1;", function (error, results, fields){
+                aId=JSON.stringify(results);
+            });
+            console.log('done');
+        }else{
+            console.log("undone")
+        }
+    }); 
 }
+
+scheduleCronstyle();
+
+connection.connect();
+
 if(new Date()<t2){
 server.route({
     method: 'GET',
