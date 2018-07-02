@@ -54,7 +54,7 @@ var connection = mysql.createConnection({
 
 
 connection.connect();
-var t2="2018-07-03T04:31:35.940Z"
+var t2="Mon Jul 02 2018 05:49:09 GMT+0000 (UTC)"
 
 if(new Date()<t2){
 server.route({
