@@ -73,8 +73,7 @@ server.route({
         handler: function (request, reply) {
             var cookie = request.state['session']
             console.log('Server processing a / request');
-            reply(t1)
-            console.log(t1+'\n'+t2);
+            reply(new Date()+'\n'+t2)
         }
     })
 }
