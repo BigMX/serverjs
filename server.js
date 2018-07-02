@@ -1,5 +1,5 @@
 'use strict';
-
+module.paths.push('/usr/local/lib/node_modules');
 function sanitized(payload){
     var r=payload;
     for(var i in r){
