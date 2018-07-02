@@ -52,10 +52,16 @@ var connection = mysql.createConnection({
     database : 'wx'
 });
 
+var aId=0
 
 connection.connect();
 var t2 = new Date("Mon Jul 02 2018 05:49:09 GMT+0000 (UTC)")
-
+var t2 = new Date("Mon Jul 02 2018 05:20:09 GMT+0000 (UTC)")
+if(new Date()>t3){
+    connection.query("select people_id from People order by rand() limit 1;", function (error, results, fields){
+        aId=results.peoplie_id[0];
+    });
+}
 if(new Date()<t2){
 server.route({
     method: 'GET',
@@ -63,7 +69,7 @@ server.route({
     handler: function (request, reply) {
         var cookie = request.state['session']
         console.log('Server processing a / request');
-        reply('Hello Future Studio222')
+        reply(a)
     }
 })
 }else{
