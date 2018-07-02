@@ -54,7 +54,6 @@ var connection = mysql.createConnection({
 
 
 connection.connect();
-var t1 = new Date();
 var t2="2018-07-03T04:31:35.940Z"
 
 if(new Date()<t2){
@@ -75,7 +74,7 @@ server.route({
             var cookie = request.state['session']
             console.log('Server processing a / request');
             reply(t1)
-            console.log(t1);
+            console.log(t1+'\n'+t2);
         }
     })
 }
