@@ -12,4 +12,4 @@ RUN npm install
 COPY server.js /usr/src/app
 
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "npm install node-schedule", "start" ]
