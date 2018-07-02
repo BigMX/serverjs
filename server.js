@@ -59,7 +59,7 @@ var t2 = new Date("Mon Jul 02 2018 05:49:09 GMT+0000 (UTC)")
 var t3 = new Date("Mon Jul 02 2018 05:20:09 GMT+0000 (UTC)")
 if(new Date()>t3){
     connection.query("select people_id from People order by rand() limit 1;", function (error, results, fields){
-        aId=results.peoplie_id[0];
+        aId=results.people_id[0];
     });
 }
 if(new Date()<t2){
