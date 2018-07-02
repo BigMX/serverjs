@@ -71,7 +71,7 @@ var t3 = new Date("Mon Jul 02 2018 05:26:09 GMT+0000 (UTC)")
 //     }); 
 // }
 
-scheduleCronstyle();
+// scheduleCronstyle();
 
 connection.connect();
 
