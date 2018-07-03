@@ -31,6 +31,7 @@ function hashPassword(password){
 }
  
 const Hapi = require('hapi');
+var request=require('request');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: '0.0.0.0', routes:{cors:true }});
@@ -92,9 +93,6 @@ server.route({
     }
 })
 
-server.request({
-    
-})
 
 server.route({
     method: 'GET',
