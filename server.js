@@ -1,5 +1,5 @@
 'use strict';
-module.paths.push('/usr/local/lib/node_modules');
+var request= require("request");
 function sanitized(payload){
     var r=payload;
     for(var i in r){
@@ -84,8 +84,10 @@ server.route({
                             aId=JSON.stringify(results);
                         });
                         console.log('done');
+                        reply({success:202})
                     }else{
                         console.log("undone")
+                        reply({fail:400})
                     }
     }
 })
