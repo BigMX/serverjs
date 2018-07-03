@@ -98,12 +98,13 @@ server.route({
     method: 'GET',
     path: '/getPrize/{round}/{class}',
     handler: function (request, reply) {
-        console.log('Server processing a / request');
         var q = 'SELECT * FROM Prize WHERE prize_round = '
         q+=request.params.round;
         q+=' AND prize_class='
-        q+=request.params.round;
+        q+=request.params.class;
         q+=";";
+        
+        console.log(q);
         connection.query(q, function (error, results, fields) {
             if (error)
                 throw error;
