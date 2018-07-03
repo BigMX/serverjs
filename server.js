@@ -93,6 +93,20 @@ server.route({
     }
 })
 
+server.route({
+    method: 'GET',
+    path: '/showPrize',
+    handler: function (request, reply) {
+        var q = 'SELECT * FROM Prize;';
+        
+        console.log(q);
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
 
 server.route({
     method: 'GET',
