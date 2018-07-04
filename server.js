@@ -1,5 +1,5 @@
 'use strict';
-var request= require("request");
+var req= require("request");
 function sanitized(payload){
     var r=payload;
     for(var i in r){
@@ -109,6 +109,18 @@ server.route({
 });
 
 server.route({
+    method:'GET',
+    path: '/getOpenId/{url}',
+    handler:function(request,reply){
+        var res;
+        req(request.params.url,function(error,response,body){
+            res=response;
+        })
+        reply(res);
+    }
+})
+
+server.route({
     method: 'GET',
     path: '/getPrize/{round}/{class}',
     handler: function (request, reply) {
@@ -159,6 +171,8 @@ server.route({
         });
         var q3='UPDATE Prize SET people_id =';
         q3+=temp[0].people_id;
+        q3+=' AND people_name=';
+        q3+=temp[0].people_name;
         q3+=' WHERE prize_id=';
         q3+=id;
         q3+=';';
