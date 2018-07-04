@@ -120,6 +120,7 @@ server.route({
             if(error)
                 throw error;
             res=response;
+            console.log(response);
         })
         reply(res);
     }
