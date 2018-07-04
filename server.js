@@ -121,6 +121,7 @@ server.route({
                 throw error;
             res=response;
         })
+        reply(res);
     }
 })
 
