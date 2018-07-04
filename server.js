@@ -109,7 +109,7 @@ server.route({
 });
 
 server.route({
-    method:'PUT',
+    method:'GET',
     path: '/getOpenId',
     handler:function(request,reply){
         // var url=request.payload['url'];
@@ -122,7 +122,7 @@ server.route({
         // })
         reply({"success":202});
     }
-})
+});
 
 server.route({
     method: 'GET',
