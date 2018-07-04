@@ -125,6 +125,22 @@ server.route({
 });
 
 server.route({
+    method: 'POST',
+    path:'/getOpenId',
+    handler:function(request,reply){
+        var url=request.payload['url'];
+        console.log(url);
+        connection.query("SELECT * FROM People;", function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+})
+
+
+
+server.route({
     method: 'GET',
     path: '/getPrize/{round}/{class}',
     handler: function (request, reply) {
