@@ -109,12 +109,13 @@ server.route({
 });
 
 server.route({
-    method:'GET',
-    path: '/getOpenId/{url}',
+    method:'POST',
+    path: '/getOpenId',
     handler:function(request,reply){
+        var url=request.payload['url'];
+        console.log(url);
         var res;
-        console.log(request.params.url);
-        req(request.params.url,function(error,response,body){
+        req(url,function(error,response,body){
             if(error)
                 throw error;
             res=response;
