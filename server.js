@@ -147,12 +147,11 @@ server.route({
             if (error)
                 throw error;
             temp=results;
-        });
-        
-        var q2='UPDATE People SET prize_id =';
-        q2+=id;
-        q2+=' WHERE people_id=';
-        q2+=temp[0].people_id;
+            console.log(temp);
+            var q2='UPDATE People SET prize_id =';
+            q2+=id;
+            q2+=' WHERE people_id=';
+            q2+=temp[0].people_id;
         q2+=';';
         connection.query(q2, function (error, results, fields) {
             if (error)
@@ -168,6 +167,9 @@ server.route({
                 throw error;
         });
         reply({"success":202})
+        });
+        
+        
     }
 });
 
