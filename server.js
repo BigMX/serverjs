@@ -122,9 +122,9 @@ server.route({
             console.log(body);
             console.log("__________________")
             console.log(response);
-            res=body;
+            res=body;        
+            reply(res);
         })
-        reply(res);
     }
 })
 
