@@ -112,15 +112,15 @@ server.route({
     method:'PUT',
     path: '/getOpenId',
     handler:function(request,reply){
-        var url=request.payload['url'];
-        console.log(url);
-        var res;
-        req(url,function(error,response,body){
-            if(error)
-                throw error;
-            res=response;
-        })
-        reply(res);
+        // var url=request.payload['url'];
+        // console.log(url);
+        // var res;
+        // req(url,function(error,response,body){
+        //     if(error)
+        //         throw error;
+        //     res=response;
+        // })
+        reply({"success":202});
     }
 })
 
