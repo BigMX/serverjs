@@ -109,7 +109,7 @@ server.route({
 });
 
 server.route({
-    method:'POST',
+    method:'PUT',
     path: '/getOpenId',
     handler:function(request,reply){
         var url=request.payload['url'];
