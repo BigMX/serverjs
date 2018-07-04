@@ -119,8 +119,7 @@ server.route({
         req(url,function(error,response,body){
             if(error)
                 throw error;
-            res=response;
-            console.log(response);
+            res=body;
         })
         reply(res);
     }
