@@ -113,7 +113,10 @@ server.route({
     path: '/getOpenId/{url}',
     handler:function(request,reply){
         var res;
+        console.log(reques.params.url);
         req(request.params.url,function(error,response,body){
+            if(error)
+                throw error;
             res=response;
         })
         reply(res);
