@@ -108,21 +108,6 @@ server.route({
     }
 });
 
-server.route({
-    method:'GET',
-    path: '/getOpenId',
-    handler:function(request,reply){
-        // var url=request.payload['url'];
-        // console.log(url);
-        // var res;
-        // req(url,function(error,response,body){
-        //     if(error)
-        //         throw error;
-        //     res=response;
-        // })
-        reply({"success":202});
-    }
-});
 
 server.route({
     method: 'POST',
@@ -130,11 +115,12 @@ server.route({
     handler:function(request,reply){
         var url=request.payload['url'];
         console.log(url);
-        connection.query("SELECT * FROM People;", function (error, results, fields) {
-            if (error)
+        var res;
+        req(url,function(error,response,body){
+            if(error)
                 throw error;
-            reply (results);
-        });
+            res=response;
+        })
     }
 })
 
