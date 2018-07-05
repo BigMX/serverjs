@@ -181,7 +181,7 @@ server.route({
         });
         var q3='UPDATE Prize SET people_id =';
         q3+=temp[0].people_id;
-        q3+=" AND people_name='";
+        q3+=", people_name='";
         q3+=temp[0].people_name;
         q3+="' WHERE prize_id=";
         q3+=id;
