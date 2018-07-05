@@ -187,6 +187,7 @@ server.route({
         q3+=id;
         q3+=';';
         connection.query(q3, function (error, results, fields) {
+            console.log(q3);
             if (error)
                 throw error;
             
