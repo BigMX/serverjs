@@ -189,8 +189,9 @@ server.route({
         connection.query(q3, function (error, results, fields) {
             if (error)
                 throw error;
+            
+            reply({"success":202})
         });
-        reply({"success":202})
         });
         
         
