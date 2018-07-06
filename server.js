@@ -133,7 +133,7 @@ server.route({
         form.uploadDir = path.join(__dirname + "/../page/upload");
         form.keepExtensions = true;//保留后缀
         form.maxFieldsSize = 2 * 1024 * 1024;
-        form.parse(requset, function (err, fields, files){
+        form.parse(request, function (err, fields, files){
         //     console.log(files.the_file);
         //     var filename = files.the_file.name
         //     var nameArray = filename.split('.');
