@@ -135,11 +135,6 @@ server.route({
         form.maxFieldsSize = 2 * 1024 * 1024;
         form.parse(req, function (err, fields, files){
             console.log(files.the_file);
-            var filename = files.the_file.name
-            var nameArray = filename.split('.');
-            var newPath = form.uploadDir + "/" + "1";
-            fs.renameSync(files.the_file.path, newPath);  //重命名
-            res.send({data:"/upload/"+avatarName});
         });
     }
 })
