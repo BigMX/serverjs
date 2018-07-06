@@ -272,7 +272,7 @@ server.route({
         console.log('adding prize');
         var q = 'INSERT INTO Prize(prize_name,prize_price,prize_round,prize_class) VALUES("'
         q+=request.payload['prize_name'];
-        q+='"，';
+        q+='",';
         q+=request.payload['prize_price'];
         q+=',';
         q+=request.payload['prize_round'];
