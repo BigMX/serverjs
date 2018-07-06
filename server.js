@@ -133,7 +133,7 @@ server.route({
         form.uploadDir = path.join(__dirname + "/../page/upload");
         form.keepExtensions = true;//保留后缀
         form.maxFieldsSize = 2 * 1024 * 1024;
-        // form.parse(req, function (err, fields, files){
+        form.parse(requset, function (err, fields, files){
         //     console.log(files.the_file);
         //     var filename = files.the_file.name
         //     var nameArray = filename.split('.');
@@ -148,7 +148,7 @@ server.route({
         //     var newPath = form.uploadDir + "/" + avatarName;
         //     fs.renameSync(files.the_file.path, newPath);  //重命名
         //     res.send({data:"/upload/"+avatarName});
-        // });
+        });
         console.log(form);
         reply({"success":202})
     }
