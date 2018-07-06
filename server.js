@@ -147,8 +147,8 @@ server.route({
             var avatarName = name + time + '.' + type;
             var newPath = form.uploadDir + "/" + avatarName;
             fs.renameSync(files.the_file.path, newPath);  //重命名
-            res.send({data:"/upload/"+avatarName})
-
+            res.send({data:"/upload/"+avatarName});
+        });
     }
 })
 
