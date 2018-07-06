@@ -97,19 +97,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'POST',
-    path: '/image',
-    handler: function (request, reply) {
-        console.log(__dirname);
-        var form = new formidable.IncomingForm();
-        form.encoding = 'utf-8';
-        form.uploadDir = path.join(__dirname + "/../page/upload");
-        form.keepExtensions = true;//保留后缀
-        form.maxFieldsSize = 2 * 1024 * 1024;
-        reply({"success":202});
-    }
-});
 
 server.route({
     method: 'POST',
@@ -269,6 +256,29 @@ server.route({
         var q = 'INSERT INTO People(people_name) VALUES("'
         q+=request.payload['nickName'];
         q+='")';
+        console.log(q);
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+})
+
+server.route({
+    method: 'POST',
+    path:'/addPrize',
+    handler:function(request,reply){
+        console.log('adding prize');
+        var q = 'INSERT INTO Prize(prize_name,prize_price,prize_round,prize_class) VALUES("'
+        q+=request.payload['prize_name'];
+        q+='"，';
+        q+=request.payload['prize_price'];
+        q+=',';
+        q+=request.payload['prize_round'];
+        q+=',';
+        q+=request.payload['prize_class'];
+        q+=',';
         console.log(q);
         connection.query(q, function (error, results, fields) {
             if (error)
