@@ -278,7 +278,7 @@ server.route({
         q+=request.payload['prize_round'];
         q+=',';
         q+=request.payload['prize_class'];
-        q+=',';
+        q+=');';
         console.log(q);
         connection.query(q, function (error, results, fields) {
             if (error)
