@@ -109,7 +109,19 @@ server.route({
     }
 });
 
-
+server.route({
+    method: 'POST',
+    path: '/image',
+    handler: function (request, reply) {
+        console.log(__dirname);
+        var form = new formidable.IncomingForm();
+        form.encoding = 'utf-8';
+        form.uploadDir = path.join(__dirname + "/../page/upload");
+        form.keepExtensions = true;//保留后缀
+        form.maxFieldsSize = 2 * 1024 * 1024;
+        reply({"success":202});
+    }
+});
 
 server.route({
     method: 'POST',
