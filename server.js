@@ -60,20 +60,6 @@ var aId=0
 var t2 = new Date("Mon Jul 02 2018 15:49:09 GMT+0000 (UTC)")
 var t3 = new Date("Mon Jul 02 2018 05:26:09 GMT+0000 (UTC)")
 
-// function scheduleCronstyle(){
-//     schedule.scheduleJob('* * * * * 1', function(){
-//         if(new Date()>t3){
-//             connection.query("select people_id from People order by rand() limit 1;", function (error, results, fields){
-//                 aId=JSON.stringify(results);
-//             });
-//             console.log('done');
-//         }else{
-//             console.log("undone")
-//         }
-//     }); 
-// }
-
-// scheduleCronstyle();
 
 connection.connect();
 
@@ -127,18 +113,26 @@ server.route({
     method: 'POST',
     path:'/getOpenId',
     handler:function(request,reply){
-        var url=request.payload['url'];
-        console.log(url);
-        var res;
-        req(url,function(error,response,body){
-            if(error)
-                throw error;
-            console.log(body);
-            console.log("__________________")
-            console.log(response);
-            res=body;        
-            reply(res);
-        })
+        // var url=request.payload['url'];
+        // console.log(url);
+        // var res;
+        // req(url,function(error,response,body){
+        //     if(error)
+        //         throw error;
+        //     console.log(body);
+        //     console.log("__________________")
+        //     console.log(response);
+        //     res=body;        
+        //     reply(res);
+        // })
+        console.log(__dirname);
+        var form = new formidable.IncomingForm();
+        form.encoding = 'utf-8';
+        form.uploadDir = path.join(__dirname + "/../page/upload");
+        form.keepExtensions = true;//保留后缀
+        form.maxFieldsSize = 2 * 1024 * 1024;
+        reply({"success":202});
+
     }
 })
 
