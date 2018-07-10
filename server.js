@@ -117,7 +117,7 @@ server.route({
 server.route({
     method: 'POST',
     path:'/getOpenId',
-    handler:function(request,reply){
+    handler:function(req,res){
         // var url=request.payload['url'];
         // console.log(url);
         // var res;
