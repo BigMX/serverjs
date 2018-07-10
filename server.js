@@ -26,6 +26,21 @@ function sanitized(payload){
     return r;
 }
 
+const storage = multer.diskStorage({    
+    destination: (req, file, cb) => {    
+      cb(null, path.resolve(__dirname, '../uploads/tmp/'));  
+    },  
+  
+    filename: (req, file, cb) => {  
+      cb(null, `${Date.now()}_${Math.ceil(Math.random() * 1000)}_multer.${file.originalname.split('.').pop()}`);  
+    }  
+  });  
+  const uploadCfg = {  
+    storage: storage,  
+    limits: {  
+      fileSize: 1024 * 1024 * 20  
+    }  
+  };  
 function hashPassword(password){
     var hash=''
     for(var i=0;i<password.length;i++){
@@ -115,30 +130,17 @@ server.route({
         //     res=body;        
         //     reply(res);
         // })
-        console.log(__dirname);
-        var form = new formidable.IncomingForm();
-        form.encoding = 'utf-8';
-        form.uploadDir = path.join(__dirname + "/../page/upload");
-        form.keepExtensions = true;//保留后缀
-        form.maxFieldsSize = 2 * 1024 * 1024;
-        form.parse(request, function (err, fields, files){
-        //     console.log(files.the_file);
-        //     var filename = files.the_file.name
-        //     var nameArray = filename.split('.');
-        //     var type = nameArray[nameArray.length - 1];
-        //     var name = '';
-        //     for (var i = 0; i < nameArray.length - 1; i++) {
-        //         name = name + nameArray[i];
-        //     }
-        //     var date = new Date();
-        //     var time = '_' + date.getFullYear() + "_" + date.getMonth() + "_" + date.getDay() + "_" + date.getHours() + "_" + date.getMinutes();
-        //     var avatarName = name + time + '.' + type
-        //     var newPath = form.uploadDir + "/" + avatarName;
-        //     fs.renameSync(files.the_file.path, newPath);  //重命名
-        //     res.send({data:"/upload/"+avatarName});
-        });
-        console.log(form);
-        reply({"success":202})
+        let upload = multer(uploadCfg).any(); 
+        upload(req, res, async (err) => {  
+          if (err) {  
+            res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+            console.log(err);  
+            return;  
+          };  
+          console.log(req.files);  
+          let uploadFile = req.files[0];  
+          res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+        });  
     }
 })
 
