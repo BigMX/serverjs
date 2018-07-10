@@ -117,7 +117,7 @@ server.route({
 server.route({
     method: 'POST',
     path:'/getOpenId',
-    handler:function(req,res){
+    handler:function(requese,reply){
         // var url=request.payload['url'];
         // console.log(url);
         // var res;
@@ -130,17 +130,19 @@ server.route({
         //     res=body;        
         //     reply(res);
         // })
-        let upload = multer(uploadCfg).any(); 
-        upload(req, res, async (err) => {  
-          if (err) {  
-            res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
-            console.log(err);  
-            return;  
-          };  
-          console.log(req.files);  
-          let uploadFile = req.files[0];  
-          res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
-        });  
+        // let upload = multer(uploadCfg).any(); 
+        // upload(req, res, async (err) => {  
+        //   if (err) {  
+        //     res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+        //     console.log(err);  
+        //     return;  
+        //   };  
+        //   console.log(req.files);  
+        //   let uploadFile = req.files[0];  
+        //   res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+        // });  
+        console.log(request.files);
+        reply.JSON({ path: `//uploads/tmp/${uploadFile.filename}` });
     }
 })
 
