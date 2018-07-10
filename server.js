@@ -141,7 +141,7 @@ server.route({
         //   let uploadFile = req.files[0];  
         //   res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
         // });  
-        console.log(request.files);
+        console.log(request.payload);
         reply.JSON({ path: `//uploads/tmp/${uploadFile.filename}` });
     }
 })
