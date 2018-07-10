@@ -166,6 +166,8 @@ server.route({
     }
 });
 
+
+
 server.route({
     method: 'GET',
     path: '/drawPrize/{round}/{class}',
@@ -274,9 +276,11 @@ server.route({
     path:'/addPrize',
     handler:function(request,reply){
         console.log('adding prize');
-        var q = 'INSERT INTO Prize(prize_name,prize_price,prize_round,prize_class) VALUES("'
+        var q = 'INSERT INTO Prize(prize_name,prize_url,prize_price,prize_round,prize_class) VALUES("'
         q+=request.payload['prize_name'];
-        q+='",';
+        q+='","';
+        q+=request.payload['prize_url'];
+        q+='",'
         q+=request.payload['prize_price'];
         q+=',';
         q+=request.payload['prize_round'];
