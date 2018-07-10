@@ -146,6 +146,19 @@ server.route({
     }
 })
 
+    router.post("/api/upload",async(req,res)=>{
+        let upload = multer(uploadCfg).any(); 
+        upload(req, res, async (err) => {  
+          if (err) {  
+            res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+            console.log(err);  
+            return;  
+          };  
+          console.log(req.files);  
+          let uploadFile = req.files[0];  
+          res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
+        });  
+    })
 
 
 server.route({
