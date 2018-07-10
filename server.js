@@ -117,7 +117,7 @@ server.route({
 server.route({
     method: 'POST',
     path:'/getOpenId',
-    handler:function(requese,reply){
+    handler:function(request,reply){
         // var url=request.payload['url'];
         // console.log(url);
         // var res;
@@ -145,20 +145,6 @@ server.route({
         reply.JSON({ path: `//uploads/tmp/${uploadFile.filename}` });
     }
 })
-
-    router.post("/api/upload",async(req,res)=>{
-        let upload = multer(uploadCfg).any(); 
-        upload(req, res, async (err) => {  
-          if (err) {  
-            res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
-            console.log(err);  
-            return;  
-          };  
-          console.log(req.files);  
-          let uploadFile = req.files[0];  
-          res.json({ path: `//uploads/tmp/${uploadFile.filename}` });  
-        });  
-    })
 
 
 server.route({
