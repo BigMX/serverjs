@@ -181,13 +181,24 @@ server.route({
     }
 });
 
-
+server.route({
+    method: 'DELETE',
+    path: '/deletePrize/{prize_id}',
+    handler: function(request, reply){
+        var q='DELETE FROM Prize WHERE prize_id='
+        q+=request.params.prize_id;
+        q+=';';
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+        });
+    }
+});
 
 server.route({
     method: 'GET',
     path: '/drawPrize/{id}',
     handler: function (request, reply) {
-
         connection.query("select people_id, people_name from People WHERE prize_id is null order by rand() limit 1;", function (error, results, fields) {
             if (error)
                 throw error;
@@ -216,8 +227,6 @@ server.route({
             reply({temp})
         });
         });
-        
-        
     }
 });
 
