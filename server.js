@@ -191,7 +191,6 @@ server.route({
         connection.query("select people_id, people_name from People WHERE prize_id is null order by rand() limit 1;", function (error, results, fields) {
             if (error)
                 throw error;
-            console.log(temp);
             var q2='UPDATE People SET prize_id =';
             q2+=request.params.id;
             q2+=' WHERE people_id=';
@@ -208,6 +207,7 @@ server.route({
         q3+="' WHERE prize_id=";
         q3+=id;
         q3+=';';
+        var temp=results;
         connection.query(q3, function (error, results, fields) {
             console.log(q3);
             if (error)
