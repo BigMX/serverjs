@@ -205,7 +205,7 @@ server.route({
         q3+=", people_name='";
         q3+=results[0].people_name;
         q3+="' WHERE prize_id=";
-        q3+=id;
+        q3+=request.params.id;
         q3+=';';
         var temp=results;
         connection.query(q3, function (error, results, fields) {
