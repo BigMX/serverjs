@@ -296,6 +296,31 @@ server.route({
     }
 })
 
+server.route({
+    method: 'PUT',
+    path:'/updatePrize',
+    handler:function(request,reply){
+        console.log('update prize');
+        var q = 'UPDATE Prize SET prize_name = "';
+        q+=request.payload['prize_name'];
+        q+='", prize_price = ';
+        q+=request.payload['prize_price'];
+        q+=', prize_round=';
+        q+=request.payload['prize_round'];
+        q+=', prize_class=';
+        q+=request.payload['prize_class'];
+        q+=' WHERE prize_id=';
+        q+=request.payload['prize_id'];
+        q+=';'
+        console.log(q);
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+})
+
 
 
 
