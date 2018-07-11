@@ -185,19 +185,9 @@ server.route({
 
 server.route({
     method: 'GET',
-    path: '/drawPrize/{round}/{class}',
+    path: '/drawPrize/{id}',
     handler: function (request, reply) {
-        var id;
-        var q1="SELECT prize_id FROM Prize WHERE prize_round = "
-        q1+=request.params.round;
-        q1+=' AND prize_class='
-        q1+=request.params.class;
-        q1+=";";
-        connection.query(q1,function(error,results, fields) {
-            if (error)
-                throw error;
-            id=results[0].prize_id;
-        });
+
         var temp;
         connection.query("select people_id, people_name from People WHERE prize_id is null order by rand() limit 1;", function (error, results, fields) {
             if (error)
@@ -205,7 +195,7 @@ server.route({
             temp=results;
             console.log(temp);
             var q2='UPDATE People SET prize_id =';
-            q2+=id;
+            q2+=request.params.id;
             q2+=' WHERE people_id=';
             q2+=temp[0].people_id;
         q2+=';';
@@ -225,7 +215,7 @@ server.route({
             if (error)
                 throw error;
             
-            reply({"success":202})
+            reply({temp})
         });
         });
         
