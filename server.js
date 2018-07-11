@@ -113,6 +113,21 @@ server.route({
     }
 });
 
+server.route({
+    method: 'GET',
+    path: '/showPrizeByPrice',
+    handler: function (request, reply) {
+        var q = 'SELECT * FROM Prize order by prize_round, prize_price;';
+        
+        console.log(q);
+        connection.query(q, function (error, results, fields) {
+            if (error)
+                throw error;
+            reply (results);
+        });
+    }
+});
+
 
 server.route({
     method: 'POST',
