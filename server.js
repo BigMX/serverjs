@@ -271,7 +271,7 @@ server.route({
     method: 'POST',
     path:'/addPeople',
     handler:function(request,reply){
-        if(new time()>t2){
+        if(new Date()>t2){
             reply({"msg":"已过期"})
         }
         console.log('adding people');
