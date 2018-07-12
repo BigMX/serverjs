@@ -272,7 +272,9 @@ server.route({
     path:'/addPeople',
     handler:function(request,reply){
         if(new Date()>t2){
-            reply({"code":-1,"msg":"已过期"})
+            var r={"code":-1,"msg":"已过期"}
+            console.log(r);
+            reply(r)
         }else{
             console.log(t2);
             console.log(new Date());
