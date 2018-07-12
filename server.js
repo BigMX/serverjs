@@ -273,7 +273,7 @@ server.route({
     handler:function(request,reply){
         if(new Date()>t2){
             reply({"msg":"已过期"})
-        }
+        }else{
         console.log('adding people');
         var q = 'INSERT INTO People(people_name) VALUES("'
         q+=request.payload['nickName'];
@@ -284,6 +284,7 @@ server.route({
                 throw error;
             reply (results);
         });
+    }
     }
 })
 
