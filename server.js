@@ -274,6 +274,8 @@ server.route({
         if(new Date()>t2){
             reply({"msg":"已过期"})
         }else{
+            console.log(t2);
+            console.log(new Date());
         console.log('adding people');
         var q = 'INSERT INTO People(people_name) VALUES("'
         q+=request.payload['nickName'];
